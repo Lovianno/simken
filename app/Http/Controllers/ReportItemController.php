@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReportItem;
-use App\Http\Requests\StoreReportItemRequest;
-use App\Http\Requests\UpdateReportItemRequest;
+use App\Http\Requests\ReportItemRequest;
 
 class ReportItemController
 {
@@ -27,7 +26,7 @@ class ReportItemController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReportItemRequest $request)
+    public function store(ReportItemRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ReportItemController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReportItemRequest $request, ReportItem $reportItem)
+    public function update(ReportItemRequest $request, ReportItem $reportItem)
     {
         //
     }

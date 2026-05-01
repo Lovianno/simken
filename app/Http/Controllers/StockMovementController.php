@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StockMovement;
-use App\Http\Requests\StoreStockMovementRequest;
-use App\Http\Requests\UpdateStockMovementRequest;
+use App\Http\Requests\StockMovementRequest;
 
 class StockMovementController
 {
@@ -27,7 +26,7 @@ class StockMovementController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStockMovementRequest $request)
+    public function store(StockMovementRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class StockMovementController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStockMovementRequest $request, StockMovement $stockMovement)
+    public function update(StockMovementRequest $request, StockMovement $stockMovement)
     {
         //
     }

@@ -182,28 +182,28 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-12 col-md-6">
-                                <a href="{{ route('admin.users.create') }}" class="btn btn-outline-success w-100">
+                                <a href="/" class="btn btn-outline-success w-100">
                                     <i class="bi bi-person-plus me-1 "></i>
                                     <span class="">Tambah Pengguna</span>
                                 </a>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <a href="{{ route('admin.courses.create') }}" class="btn btn-outline-info w-100">
+                                <a href="/" class="btn btn-outline-info w-100">
                                     <i class="bi bi-journal-plus me-1 "></i>
                                     <span class="">Tambah Kursus</span>
                                 </a>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <a href="{{ route('admin.transactions.index') }}" class="btn btn-outline-warning w-100">
+                                <a href="/" class="btn btn-outline-warning w-100">
                                     <i class="bi bi-clipboard-check me-1 "></i>
                                     <span class="">Konfirmasi Pembayaran</span>
                                 </a>
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <a href="{{ route('admin.categories.create') }}" class="btn btn-outline-secondary w-100">
+                                <a href="/" class="btn btn-outline-secondary w-100">
                                     <i class="bi bi-bookmark me-1 "></i>
                                     <span class="">Tambah Kategori</span>
                                 </a>

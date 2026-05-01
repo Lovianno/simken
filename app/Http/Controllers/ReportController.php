@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
-use App\Http\Requests\StoreReportRequest;
-use App\Http\Requests\UpdateReportRequest;
+use App\Http\Requests\ReportRequest;
 
 class ReportController
 {
@@ -27,7 +26,7 @@ class ReportController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReportRequest $request)
+    public function store(ReportRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class ReportController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReportRequest $request, Report $report)
+    public function update(ReportRequest $request, Report $report)
     {
         //
     }

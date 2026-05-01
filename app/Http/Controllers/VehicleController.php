@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
-use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest;
+use App\Http\Requests\VehicleRequest;
 
 class VehicleController
 {
@@ -27,7 +26,7 @@ class VehicleController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVehicleRequest $request)
+    public function store(VehicleRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class VehicleController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
+    public function update(VehicleRequest $request, Vehicle $vehicle)
     {
         //
     }

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Part;
-use App\Http\Requests\StorePartRequest;
-use App\Http\Requests\UpdatePartRequest;
+use App\Http\Requests\PartRequest;
 
 class PartController
 {
@@ -27,7 +26,7 @@ class PartController
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePartRequest $request)
+    public function store(PartRequest $request)
     {
         //
     }
@@ -51,7 +50,7 @@ class PartController
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePartRequest $request, Part $part)
+    public function update(PartRequest $request, Part $part)
     {
         //
     }

@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuids;
+    use HasFactory, Notifiable;
 
 
     public const STATUS_ACTIVE = 'active';
@@ -19,7 +18,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
         'phone_number',
         'status',
     ];
@@ -33,7 +31,6 @@ class User extends Authenticatable
     {
         return [
             'id' => 'string',
-            'role' => 'string',
             'status' => 'string',
             'email_verified_at' => 'datetime',
         ];

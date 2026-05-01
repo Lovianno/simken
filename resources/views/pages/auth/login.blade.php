@@ -7,7 +7,7 @@
 		<div class="col-12 col-sm-10 col-md-7 col-lg-5">
 			<div class="border-0 rounded-4 p-4">
 				<div class="text-center mb-4">
-					<a href="{{ route('beranda') }}" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-2">
+					<a href="/" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-2">
 						<img src="{{ asset('assets/img/logo/Circle Logo Simpul.png') }}" alt="Logo" width="48"
 							class="rounded-circle shadow-sm border">
 						<span class="fw-bold text-app-primary fs-4" style="letter-spacing:2px;">SIMKEN</span>
@@ -47,11 +47,7 @@
 					<div class="mb-3">
 						<button class="btn btn-app-primary d-grid w-100" type="submit">Masuk</button>
 					</div>
-					<div class="mt-4">
-						Belum punya akun? <a href="{{ route('register.student.index') }}"
-							class="text-app-primary link-underline-hover">Daftar
-							gratis sekarang</a>
-					</div>
+					
 				</form>
 			</div>
 		</div>

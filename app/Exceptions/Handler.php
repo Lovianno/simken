@@ -16,40 +16,19 @@ class Handler extends ExceptionHandler
 {
   public function render($request, Throwable $e)
   {
-    Log::error('Exception caught', [
-      'error' => $e->getMessage(),
-      'trace' => $e->getTraceAsString(),
-      'url' => $request->fullUrl(),
-      'input' => $request->all(),
-    ]);
+      Log::error('Exception caught', [
+          'error' => $e->getMessage(),
+          'trace' => $e->getTraceAsString(),
+          'url' => $request->fullUrl(),
+          'input' => $request->all(),
+      ]);
 
-    if ($request->is('api/*') || $request->wantsJson()) {
-      return $this->renderJson($e);
-    }
+      // Gunakan wantsJson untuk akurat, dan cek hanya API route
+      if ($request->is('api/*') || $request->wantsJson()) {
+          return $this->renderJson($e);
+      }
 
-    // Fallback error pages for web
-    if ($e instanceof NotFoundHttpException) {
-      return response()->view('pages.error.404', [], 404);
-    }
-    if ($e instanceof AuthenticationException) {
-      return response()->view('pages.error.401', [], 401);
-    }
-    if ($e instanceof AuthorizationException) {
-      return response()->view('pages.error.403', [], 403);
-    }
-    if ($e instanceof HttpException && $e->getStatusCode() === 419) {
-      return response()->view('pages.error.419', [], 419);
-    }
-
-    if ($e instanceof HttpException && $e->getStatusCode() === 500) {
-      return response()->view('pages.error.500', [], 500);
-    }
-
-    if ($e instanceof HttpException && $e->getStatusCode() === 503) {
-      return response()->view('pages.error.503', [], 503);
-    }
-
-    return parent::render($request, $e);
+      return parent::render($request, $e);
   }
 
   protected function renderJson(Throwable $e)

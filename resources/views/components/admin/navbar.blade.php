@@ -97,7 +97,7 @@
 			</a>
 		</div>
 		<!-- BREADCRUMB -->
-		<div class="d-flex align-items-center flex-grow-1">
+		<div class="d-flex align-items-center grow">
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb mb-0">
 

@@ -36,7 +36,7 @@
 						</form>
 					</div>
 					<div class="col-12 col-md-auto ms-md-auto text-md-end">
-						<a href="{{ route('admin.users.create') }}" class="btn btn-primary w-100 w-md-auto">
+						<a href="{{ route('users.create') }}" class="btn btn-primary w-100 w-md-auto">
 							<i class="bi bi-plus-lg me-1"></i> Tambah Baru
 						</a>
 					</div>
@@ -50,7 +50,7 @@
 								<th>#</th>
 								<th>Nama</th>
 								<th>Email</th>
-								<th>Peran</th>
+								<th>Nomor Telepon</th>
 								<th class="text-center">Status</th>
 								<th class="text-center">Aksi</th>
 							</tr>
@@ -61,22 +61,18 @@
 									<td>{{ $users->firstItem() + $loop->index }}</td>
 									<td>{{ $user->name }}</td>
 									<td>{{ $user->email }}</td>
-									<td><span>{{ ucfirst($user->role) }}</span></td>
+									<td>{{ $user->phone_number ?? '-' }}</td>
 									<td>
 										@php
 											$status = $user->status;
-											$badgeClass = match ($status) {
-											    'active' => 'bg-success',
-											    'inactive' => 'bg-secondary',
-											    default => 'bg-secondary',
-											};
+											$badgeClass = $status === 'active' ? 'bg-success text-white' : 'bg-secondary text-white';
 										@endphp
-										<span class="badge w-100 {{ $badgeClass }}">{{ $status }}</span>
+										<span class="badge w-100 {{ $badgeClass }}">{{ ucfirst($status) }}</span>
 									</td>
 									<td class="d-flex justify-content-center gap-2">
-										<a href="{{ route('admin.users.show', $user) }}" class="btn btn-sm btn-info"><i class="bx bx-info-circle"></i>
+										<a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-info"><i class="bx bx-info-circle"></i>
 											Lihat</a>
-										<a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning"><i class="bx bx-pencil"></i>
+										<a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning"><i class="bx bx-pencil"></i>
 											Ubah</a>
 										@if (auth()->id() !== $user->id)
 											<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
@@ -106,7 +102,7 @@
 									<div class="modal-header border-0 pb-0" style="padding-bottom:0;">
 										<div class="d-flex align-items-center gap-2 w-100">
 											<i class="bi bi-exclamation-triangle-fill text-danger fs-3 me-2"></i>
-											<div class="flex-grow-1">
+											<div class="grow">
 												<h5 class="modal-title mb-0 fw-bold text-danger">Konfirmasi Hapus</h5>
 												<small class="text-muted">Aksi ini tidak dapat dibatalkan</small>
 											</div>
@@ -121,7 +117,7 @@
 									</div>
 									<div class="modal-footer border-0 pt-0 px-4 pb-4 d-flex justify-content-end gap-2">
 										<button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
-										<form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
+										<form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline">
 											@csrf
 											@method('DELETE')
 											<button type="submit" class="btn btn-danger px-4 btn-delete-user">
@@ -152,7 +148,7 @@
 		</div>
 
 		<!-- Card: Accordion User Pending/Rejected -->
-		<div class="card shadow-sm border-0 mb-4 p-3">
+		{{-- <div class="card shadow-sm border-0 mb-4 p-3">
 			<div class="card-header bg-white border-0 mb-2">
 				<button class="w-100 d-flex align-items-center justify-content-between border-0 bg-transparent p-0" type="button"
 					data-bs-toggle="collapse" data-bs-target="#pendingAccordion" aria-expanded="false"
@@ -178,7 +174,7 @@
 					<div id="pending-table-container"></div>
 				</div>
 			</div>
-		</div>
+		</div> --}}
 	</div>
 @endsection
 
@@ -231,14 +227,14 @@
 <div class="table-responsive text-nowrap">
 	<table class="table table-hover">
 		<thead>
-			<tr class="text-start">
-				<th>#</th>
-				<th>Nama</th>
-				<th>Email</th>
-				<th>Peran</th>
-				<th class="text-center">Status</th>
-				<th class="text-center">Aksi</th>
-			</tr>
+					<tr class="text-start">
+						<th>#</th>
+						<th>Nama</th>
+						<th>Email</th>
+						<th>Nomor Telepon</th>
+						<th class="text-center">Status</th>
+						<th class="text-center">Aksi</th>
+					</tr>
 		</thead>
 		<tbody>
 			<tr>
@@ -273,8 +269,8 @@
 																				<td>${number}</td>
 																				<td>${user.name}</td>
 																				<td>${user.email}</td>
-																				<td>${user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
-																				<td><span class="badge w-100 ${badgeClass}">${user.status}</span></td>
+																				<td>${user.phone_number || '-'}</td>
+																				<td><span class="badge w-100 ${badgeClass}">${user.status.charAt(0).toUpperCase() + user.status.slice(1)}</span></td>
 																				<td class="d-flex justify-content-center gap-2">${renderActions(user)}</td>
 																			</tr>
 																			`;

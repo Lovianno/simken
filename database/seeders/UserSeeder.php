@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'name'         => 'Admin Utama',
-                'email'        => 'admin@bengkel.com',
+                'email'        => 'admin@gmail.com',
                 'password'     => Hash::make('password'),
                 'phone_number' => '081234567890',
                 'status'       => 'active',
@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name'         => 'Budi Santoso',
-                'email'        => 'budi@bengkel.com',
+                'email'        => 'budi@gmail.com',
                 'password'     => Hash::make('password'),
                 'phone_number' => '082345678901',
                 'status'       => 'active',
@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name'         => 'Siti Rahayu',
-                'email'        => 'siti@bengkel.com',
+                'email'        => 'siti@gmail.com',
                 'password'     => Hash::make('password'),
                 'phone_number' => '083456789012',
                 'status'       => 'active',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name'         => 'Joko Widodo',
-                'email'        => 'joko@bengkel.com',
+                'email'        => 'joko@gmail.com',
                 'password'     => Hash::make('password'),
                 'phone_number' => '084567890123',
                 'status'       => 'inactive',
