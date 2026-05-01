@@ -1,0 +1,541 @@
+// Warna utama Sneat
+
+// App color palette (do not override Bootstrap)
+$brand-primary: #1e3a8a; // Biru Tua (#1E3A8A)
+$brand-secondary: #3b82f6; // Biru Muda (#3B82F6)
+$brand-white: #ffffff; // Putih
+$brand-white-soft: #f3f4f6; // Abu Muda
+$brand-black: #111827; // Hitam
+$brand-gray: #6b7280; // Abu Gelap
+
+// Override CSS variable Bootstrap
+:root {
+    --bs-primary: #{$brand-secondary};
+    --bs-primary-rgb:
+        #{red($brand-secondary)}, #{green($brand-secondary)},
+        #{blue($brand-secondary)};
+
+    /* App custom palette variables (non-Bootstrap) */
+    --app-primary: #{$brand-primary};
+    --app-primary-rgb:
+        #{red($brand-primary)}, #{green($brand-primary)},
+        #{blue($brand-primary)};
+    --app-secondary: #{$brand-secondary};
+    --app-secondary-rgb:
+        #{red($brand-secondary)}, #{green($brand-secondary)},
+        #{blue($brand-secondary)};
+    --app-white: #{$brand-white};
+    --app-white-soft: #{$brand-white-soft};
+    --app-black: #{$brand-black};
+    --app-gray: #{$brand-gray};
+}
+
+// ===============================
+// SIDEBAR SCROLL FIX OVERRIDE
+// ===============================
+.layout-menu {
+    height: 100vh !important;
+    min-height: 0 !important;
+}
+.menu-vertical {
+    height: 100% !important;
+    min-height: 0 !important;
+}
+.menu-inner {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+// // NEWS
+// .news-title {
+//     color: #003232;
+// }
+// .news-title:hover {
+//     color: #008080;
+// }
+// .img-hover-slide {
+//     overflow: hidden;
+//     border-radius: 8px;
+// }
+
+// .img-hover-slide img {
+//     transition: transform 1.2s ease;
+//     transform: translateY(0);
+// }
+
+// .img-hover-slide:hover img {
+//     transform: translateY(-5%);
+// }
+
+/* ===============================
+   TEXT (sesuai warna Sneat)
+   =============================== */
+
+/* Utilities using app palette (safe, not overriding Bootstrap) */
+.text-app {
+    color: var(--app-black) !important;
+}
+.text-app-secondary {
+    color: var(--app-secondary) !important;
+}
+.text-app-primary {
+    color: var(--app-primary) !important;
+}
+.text-app-black {
+    color: var(--app-black) !important;
+}
+.text-app-gray {
+    color: var(--app-gray) !important;
+}
+.text-app-white {
+    color: var(--app-white) !important;
+}
+
+.bg-app {
+    background-color: var(--app-white) !important;
+}
+.bg-app-soft {
+    background-color: var(--app-white-soft) !important;
+}
+.bg-app-primary {
+    background-color: var(--app-primary) !important;
+}
+.bg-app-secondary {
+    background-color: var(--app-secondary) !important;
+}
+
+.bg-app {
+    background-color: var(--app-background) !important;
+}
+.bg-app-soft {
+    background-color: var(--app-background-soft) !important;
+}
+.bg-app-primary {
+    background-color: var(--app-primary) !important;
+}
+.bg-app-secondary {
+    background-color: var(--app-secondary) !important;
+}
+
+/* ===============================
+   BUTTON  (sesuai warna Sneat)
+   =============================== */
+
+.btn-primary {
+    background-color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+}
+
+/* App button variants (non-Bootstrap names to avoid override) */
+.btn-app-primary {
+    background-color: $brand-primary !important;
+    border-color: $brand-primary !important;
+    color: #fff !important;
+}
+.btn-app-secondary {
+    background-color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+    color: #fff !important;
+}
+.btn-app-primary:hover,
+.btn-app-primary:focus {
+    background-color: lighten($brand-primary, 6%) !important;
+    border-color: lighten($brand-primary, 6%) !important;
+    box-shadow: 0 0 0 0.15rem
+        rgba(
+            red($brand-primary),
+            green($brand-primary),
+            blue($brand-primary),
+            0.25
+        ) !important;
+}
+
+.btn-app-secondary {
+    background-color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+    color: #fff !important;
+}
+.btn-app-secondary:hover,
+.btn-app-secondary:focus {
+    background-color: lighten($brand-secondary, 6%) !important;
+    border-color: lighten($brand-secondary, 6%) !important;
+    box-shadow: 0 0 0 0.15rem
+        rgba(
+            red($brand-secondary),
+            green($brand-secondary),
+            blue($brand-secondary),
+            0.25
+        ) !important;
+}
+
+.btn-app-outline-primary {
+    background-color: transparent !important;
+    color: $brand-primary !important;
+    border-color: $brand-primary !important;
+}
+.btn-app-outline-primary:hover,
+.btn-app-outline-primary:focus {
+    background-color: $brand-primary !important;
+    color: #fff !important;
+    border-color: $brand-primary !important;
+    box-shadow: none !important;
+}
+
+.btn-app-outline-secondary {
+    background-color: transparent !important;
+    color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+}
+.btn-app-outline-secondary:hover,
+.btn-app-outline-secondary:focus {
+    background-color: rgba(
+        red($brand-secondary),
+        green($brand-secondary),
+        blue($brand-secondary),
+        0.08
+    ) !important;
+    color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+    box-shadow: 0 0 0 0.15rem
+        rgba(
+            red($brand-secondary),
+            green($brand-secondary),
+            blue($brand-secondary),
+            0.2
+        ) !important;
+}
+
+.btn-app-soft {
+    background-color: $brand-white-soft !important;
+    border-color: $brand-white-soft !important;
+    color: $brand-black !important;
+}
+.btn-app-soft:hover,
+.btn-app-soft:focus {
+    background-color: darken($brand-white-soft, 3%) !important;
+    border-color: darken($brand-white-soft, 3%) !important;
+    color: $brand-black !important;
+}
+
+/* =========================================
+   CLEAN INPUT-GROUP (border halus, modern)
+   ========================================= */
+
+/* Override global form control focus */
+.form-control:focus,
+.form-select:focus {
+    border-color: $brand-secondary !important;
+    box-shadow: 0 0 0 0.15rem
+        rgba(
+            red($brand-secondary),
+            green($brand-secondary),
+            blue($brand-secondary),
+            0.25
+        ) !important;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-toggle::after {
+    content: "";
+    display: inline-block;
+    margin-top: 0 !important;
+    width: 1em;
+    height: 1em;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' stroke='%23333' stroke-width='2' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1em 1em;
+    border: none !important;
+    vertical-align: middle;
+    transform: none !important;
+}
+
+.dropdown-toggle:hover::after {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' stroke='%23fff' stroke-width='2' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.dropdown-toggle.show::after,
+.dropdown-toggle[aria-expanded="true"]::after {
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' stroke='%23fff' stroke-width='2' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 10l4-4 4 4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.btn.dropdown-toggle:hover {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Sebelum focus */
+.input-group {
+    border: 1px solid #d0d5dd; /* border halus */
+    border-radius: 8px; /* rounded seperti screenshot */
+    overflow: hidden; /* supaya rapi */
+}
+
+.input-group .input-group-text,
+.input-group .form-control,
+.input-group .btn {
+    border: none !important; /* hilangkan border bawaan Bootstrap */
+    box-shadow: none !important;
+}
+
+/* Placeholder lebih lembut */
+.input-group .form-control::placeholder {
+    color: #9ca3af;
+}
+
+/* Saat focus – seluruh group berubah merah */
+.input-group:focus-within {
+    border-color: $brand-secondary !important;
+    box-shadow: 0 0 0 0.1rem
+        rgba(
+            red($brand-secondary),
+            green($brand-secondary),
+            blue($brand-secondary),
+            0.25
+        ) !important;
+}
+.input-group .input-group-text {
+    border-right: 1px solid #e5e7eb !important; /* garis tipis seperti screenshot */
+}
+
+.input-group .form-control {
+    border-right: 1px solid #e5e7eb !important;
+}
+
+/* Hilangkan border-right pada tombol agar rapi */
+.input-group .btn {
+    border-right: none !important;
+}
+
+/* ===============================
+   FIX ACTIVE MENU SNEAT (HILANGKAN UNGU)
+   =============================== */
+
+/* Background active */
+/* Background active */
+.layout-menu .menu-inner .menu-item.active > .menu-link,
+.layout-menu .menu-inner .menu-item.open > .menu-link {
+    background-color: rgba(
+        red($brand-secondary),
+        green($brand-secondary),
+        blue($brand-secondary),
+        0.15
+    ) !important;
+    color: $brand-secondary !important;
+}
+
+/* Hover */
+.layout-menu .menu-link:hover {
+    background-color: rgba(
+        red($brand-secondary),
+        green($brand-secondary),
+        blue($brand-secondary),
+        0.08
+    ) !important;
+    color: $brand-secondary !important;
+}
+
+/* Icon warna active */
+.layout-menu .menu-item.active .menu-icon,
+.layout-menu .menu-item.open .menu-icon {
+    color: $brand-secondary !important;
+}
+
+/* Text active */
+.layout-menu .menu-item.active .menu-link div,
+.layout-menu .menu-item.open .menu-link div {
+    color: $brand-secondary !important;
+}
+
+/* Indicator garis */
+.layout-menu .menu-item.active::before,
+.layout-menu .menu-item.active > .menu-link::before {
+    background-color: $brand-secondary !important;
+}
+
+/* =========================================
+   PAGINATION PRIMARY (sesuai warna Sneat)
+   ========================================= */
+
+/* =========================================
+   FIX PAGINATION PRIMARY (Bootstrap + Sneat)
+   ========================================= */
+
+.pagination {
+    --bs-pagination-color: #{$brand-secondary};
+    --bs-pagination-hover-color: #{$brand-secondary};
+    --bs-pagination-focus-color: #{$brand-secondary};
+
+    --bs-pagination-hover-bg: rgba(
+        red($brand-secondary),
+        green($brand-secondary),
+        blue($brand-secondary),
+        0.15
+    );
+    --bs-pagination-hover-border-color: #{$brand-secondary};
+
+    --bs-pagination-active-bg: #{$brand-secondary} !important;
+    --bs-pagination-active-border-color: #{$brand-secondary} !important;
+    --bs-pagination-active-color: #fff !important;
+
+    --bs-pagination-border-color: #d0d5dd;
+}
+
+.page-item.active .page-link {
+    background-color: $brand-secondary !important;
+    border-color: $brand-secondary !important;
+    color: #fff !important;
+}
+.page-link:hover {
+    color: $brand-secondary !important;
+}
+
+.page-item:not(.active) .page-link:hover {
+    background-color: rgba(
+        red($brand-secondary),
+        green($brand-secondary),
+        blue($brand-secondary),
+        0.15
+    ) !important;
+    border-color: $brand-secondary !important;
+}
+
+a.layout-menu-toggle.sidebar-toggle {
+    background-color: $brand-secondary !important;
+    color: #fff !important;
+}
+
+a.layout-menu-toggle.sidebar-toggle .bx {
+    color: #fff !important;
+}
+
+a.layout-menu-toggle.sidebar-toggle:hover {
+    background-color: lighten($brand-secondary, 8%) !important;
+}
+
+a.layout-menu-toggle.sidebar-toggle:hover .bx {
+    color: #fff !important;
+}
+
+.bg-menu-theme
+    .menu-sub
+    > .menu-item.active
+    > .menu-link:not(.menu-toggle):before {
+    background-color: $brand-secondary !important;
+}
+
+.preview-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.preview-img {
+    max-width: 100%;
+    width: 320px;
+    height: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 12px 0 rgba(30, 58, 138, 0.08);
+    object-fit: contain;
+    background: #fff;
+}
+.preview-remove {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.85) !important;
+    color: var(--app-primary) !important;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 1px 4px 0 rgba(30, 58, 138, 0.1);
+    transition:
+        background 0.15s,
+        color 0.15s;
+}
+.preview-remove:hover {
+    background: var(--app-primary) !important;
+    color: #fff !important;
+}
+.drop-area {
+    border: 2.5px dashed var(--app-primary) !important;
+    border-radius: 1rem !important;
+    background: var(--app-white-soft) !important;
+    cursor: pointer;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.drop-area {
+    border: 2.5px dashed var(--app-primary) !important;
+    border-radius: 1rem !important;
+    background: var(--app-white-soft) !important;
+    cursor: pointer;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition:
+        border-color 0.25s,
+        background 0.25s,
+        box-shadow 0.25s,
+        transform 0.18s cubic-bezier(0.4, 1.2, 0.6, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    will-change: border-color, background, box-shadow, transform;
+}
+
+.drop-area-hover,
+.drop-area:hover {
+    background: rgba(30, 58, 138, 0.1) !important; /* app-primary 10% */
+}
+
+.form-check-input:checked {
+    background-color: var(--app-primary) !important;
+    border-color: var(--app-primary) !important;
+}
+
+#pending-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.7);
+    min-height: 100%;
+    width: 100%;
+    pointer-events: all;
+}
+
+.link-underline-hover:hover {
+    text-decoration: underline !important;
+}
