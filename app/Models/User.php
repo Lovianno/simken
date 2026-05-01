@@ -11,15 +11,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasUuids;
 
-    public const ROLE_ADMIN = 'admin';
-    public const ROLE_TEACHER = 'teacher';
-    public const ROLE_STUDENT = 'student';
 
     public const STATUS_ACTIVE = 'active';
     public const STATUS_INACTIVE = 'inactive';
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_REJECTED = 'rejected';
-
+   
     protected $fillable = [
         'name',
         'email',
@@ -44,8 +39,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function teacher()
-    {
-        return $this->hasOne(Teacher::class);
+    public function Report(){
+        return $this->hasMany(Report::class);
     }
+   
 }
