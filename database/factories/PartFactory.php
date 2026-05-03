@@ -17,7 +17,10 @@ class PartFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'base_price' => $this->faker->numberBetween(10000, 500000),
+            'stock' => $this->faker->numberBetween(1, 100),
+            'description' => $this->faker->sentence(),
         ];
     }
 }

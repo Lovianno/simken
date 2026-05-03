@@ -12,7 +12,8 @@ class VehicleSeeder extends Seeder
         $vehicles = [
             [
                 'nopol'       => 'B 1234 ABC',
-                'type'        => 'Truk Fuso',
+                'type'        => 'Mitsubishi Fuso',
+                'category'    => 'Truk',
                 'year'        => 2018,
                 'unit_number' => 'UNIT-001',
                 'created_at'  => now(),
@@ -20,7 +21,8 @@ class VehicleSeeder extends Seeder
             ],
             [
                 'nopol'       => 'B 5678 DEF',
-                'type'        => 'Truk Hino Ranger',
+                'type'        => 'Hino Ranger',
+                'category'    => 'Truk',
                 'year'        => 2019,
                 'unit_number' => 'UNIT-002',
                 'created_at'  => now(),
@@ -28,7 +30,8 @@ class VehicleSeeder extends Seeder
             ],
             [
                 'nopol'       => 'B 9012 GHI',
-                'type'        => 'Truk Isuzu Giga',
+                'type'        => 'Isuzu Giga',
+                'category'    => 'Truk',
                 'year'        => 2020,
                 'unit_number' => 'UNIT-003',
                 'created_at'  => now(),
@@ -36,7 +39,8 @@ class VehicleSeeder extends Seeder
             ],
             [
                 'nopol'       => 'D 3456 JKL',
-                'type'        => 'Truk Mitsubishi Colt Diesel',
+                'type'        => 'Mitsubishi Colt Diesel',
+                'category'    => 'Truk',
                 'year'        => 2017,
                 'unit_number' => 'UNIT-004',
                 'created_at'  => now(),
@@ -44,7 +48,8 @@ class VehicleSeeder extends Seeder
             ],
             [
                 'nopol'       => 'L 7890 MNO',
-                'type'        => 'Truk Toyota Dyna',
+                'type'        => 'Toyota Dyna',
+                'category'    => 'Truk',
                 'year'        => 2021,
                 'unit_number' => 'UNIT-005',
                 'created_at'  => now(),

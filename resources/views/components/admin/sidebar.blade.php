@@ -47,10 +47,37 @@
             <!-- User -->
             <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <a href="{{ route('users.index') }}" class="menu-link text-decoration-none">
-                    <i class="menu-icon tf-icons bx bx-user"></i>
+                    <i class="menu-icon tf-icons bi bi-people"></i>
                     <div>Data Pengguna</div>
                 </a>
             </li>
+              <!-- Kendaraan -->
+            <li class="menu-item {{ request()->routeIs('vehicles.*') ? 'active' : '' }}">
+                <a href="{{ route('vehicles.index') }}" class="menu-link text-decoration-none">
+                    <i class="menu-icon tf-icons bi bi-car-front"></i>
+                    <div>Data Kendaraan</div>
+                </a>
+            </li>
+            <!-- Onderdil -->
+            <li class="menu-item {{ request()->routeIs('parts.*') ? 'active' : '' }}">
+                <a href="{{ route('parts.index') }}" class="menu-link text-decoration-none">
+                    <i class="menu-icon tf-icons bi bi-wrench"></i>
+                    <div>Data Suku Cadang</div>
+                </a>
+            </li>
+
+              <!-- Master Data -->
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">Laporan</span>
+            </li>
+            <!-- Perbaikan Kendaraan -->
+            <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}" class="menu-link text-decoration-none">
+                    <i class="menu-icon tf-icons bi bi-tools"></i>
+                    <div>Perbaikan Kendaraan</div>
+                </a>
+            </li>
+          
 
         </ul>
     </div>

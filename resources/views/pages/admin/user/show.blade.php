@@ -143,7 +143,7 @@
 							<div class="modal-header border-0 pb-0">
 								<div class="d-flex align-items-center gap-2 w-100">
 									<i class="bi bi-check-circle text-success fs-3 me-2"></i>
-									<div class="flex-grow-1">
+									<div class="grow">
 										<h5 class="modal-title mb-0 fw-bold text-success">Konfirmasi Approve</h5>
 										<small class="text-muted">Guru akan diaktifkan sebagai pengajar</small>
 									</div>
@@ -178,7 +178,7 @@
 							<div class="modal-header border-0 pb-0">
 								<div class="d-flex align-items-center gap-2 w-100">
 									<i class="bi bi-x-circle text-danger fs-3 me-2"></i>
-									<div class="flex-grow-1">
+									<div class="grow">
 										<h5 class="modal-title mb-0 fw-bold text-danger">Konfirmasi Reject</h5>
 										<small class="text-muted">Pengajuan guru akan ditolak</small>
 									</div>

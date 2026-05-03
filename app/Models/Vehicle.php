@@ -11,11 +11,9 @@ class Vehicle extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    
+
     public function Reports()
     {
         return $this->hasMany(Report::class);
     }
-
-    
 }

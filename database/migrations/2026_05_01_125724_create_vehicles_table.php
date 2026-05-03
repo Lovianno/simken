@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nopol', 20)->comment('Nomor Polisi');
             $table->string('type', 100)->comment('Jenis/Tipe Kendaraan');
+            $table->enum('category', ['Mobil', 'Truk', 'Bus', 'Sepeda Motor'])->comment('Kategori Kendaraan');
             $table->year('year')->comment('Tahun Kendaraan');
             $table->string('unit_number', 50)->comment('Nomor Unit Internal');
             $table->timestamps();
