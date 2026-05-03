@@ -15,6 +15,8 @@ return new class extends Migration
             $table->integer('quantity')->comment('Jumlah');
             $table->unsignedBigInteger('reference_id')->nullable()->comment('ID Referensi (polymorphic)');
             $table->string('reference_type', 50)->nullable()->comment('Tipe Referensi: report_item, purchase, adjustment');
+            $table->text('note')->nullable()->comment('Catatan');
+            $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
             $table->timestamps();
 
             $table->index(['reference_id', 'reference_type']);

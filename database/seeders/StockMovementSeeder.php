@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\StockMovement;
 use Illuminate\Database\Seeder;
 
 class StockMovementSeeder extends Seeder
@@ -12,6 +12,6 @@ class StockMovementSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        StockMovement::factory()->count(50)->create();
     }
 }

@@ -4,29 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use App\Http\Requests\VehicleRequest;
+use App\Services\VehicleService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class VehicleController
 {
+    public function __construct(private VehicleService $vehicleService) { }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $search = $request->query('search');
-
-        // All vehicles
-        $vehicles = Vehicle::query()
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('nopol', 'like', "%{$search}%")
-                        ->orWhere('type', 'like', "%{$search}%")
-                        ->orWhere('unit_number', 'like', "%{$search}%");
-                });
-            })
-            ->orderByDesc('updated_at')
-            ->paginate(10);
+        $vehicles = $this->vehicleService->getAll($search);
 
         $currentPage = $vehicles->currentPage();
         $lastPage = $vehicles->lastPage();
@@ -57,17 +48,10 @@ class VehicleController
      */
     public function store(VehicleRequest $request)
     {
-        $data = $request->validated();
-
-        DB::beginTransaction();
         try {
-
-            $vehicle = Vehicle::query()->create($data);
-
-            DB::commit();
+            $this->vehicleService->create($request->validated());
             return redirect()->route('vehicles.index')->with('success', 'Data Kendaraan berhasil ditambahkan.');
         } catch (\Exception $e) {
-            DB::rollBack();
             return redirect()->back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat menambah kendaraan. Silakan coba lagi.']);
         }
     }
@@ -95,17 +79,10 @@ class VehicleController
      */
     public function update(VehicleRequest $request, Vehicle $vehicle)
     {
-          $data = $request->validated();
-
-        DB::beginTransaction();
         try {
-          
-            $vehicle->update($data);
-
-            DB::commit();
+            $this->vehicleService->update($vehicle, $request->validated());
             return redirect()->route('vehicles.index')->with('success', 'Data Kendaraan berhasil diperbarui.');
         } catch (\Exception $e) {
-            DB::rollBack();
             return redirect()->back()->withInput()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui kendaraan. Silakan coba lagi.']);
         }
     }
@@ -115,7 +92,7 @@ class VehicleController
      */
     public function destroy(Vehicle $vehicle)
     {
-        $vehicle->delete();
+        $this->vehicleService->delete($vehicle);
         return redirect()->route('vehicles.index')->with('success', 'Data Kendaraan berhasil dihapus.');
     }
 }

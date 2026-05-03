@@ -14,7 +14,7 @@ class ReportSeeder extends Seeder
         // =============================================
         $report1Id = DB::table('reports')->insertGetId([
             'vehicle_id'  => 1,
-            'user_id'     => 2, // Budi Santoso
+            'user_id'     => 1, // Budi Santoso
             'date'        => '2025-04-10',
             'grand_total' => 0, // akan di-update di bawah
             'created_at'  => now(),
@@ -61,7 +61,7 @@ class ReportSeeder extends Seeder
         // =============================================
         $report2Id = DB::table('reports')->insertGetId([
             'vehicle_id'  => 2,
-            'user_id'     => 3, // Siti Rahayu
+            'user_id'     => 1, // Siti Rahayu
             'date'        => '2025-04-15',
             'grand_total' => 0,
             'created_at'  => now(),
@@ -103,7 +103,7 @@ class ReportSeeder extends Seeder
         // =============================================
         $report3Id = DB::table('reports')->insertGetId([
             'vehicle_id'  => 3,
-            'user_id'     => 2, // Budi Santoso
+            'user_id'     => 1, // Budi Santoso
             'date'        => '2025-04-20',
             'grand_total' => 0,
             'created_at'  => now(),
@@ -151,6 +151,8 @@ class ReportSeeder extends Seeder
                 'quantity'       => $s['quantity'],
                 'reference_id'   => null,
                 'reference_type' => 'purchase',
+                'note'          => null,
+                'user_id'       => 1, 
                 'created_at'     => now()->subDays(30),
                 'updated_at'     => now()->subDays(30),
             ]);
@@ -165,6 +167,8 @@ class ReportSeeder extends Seeder
             'quantity'       => $qty,
             'reference_id'   => $reportId,
             'reference_type' => 'report_item',
+            'note'          => "Penjualan part_id {$partId} sebanyak {$qty} untuk report_id {$reportId}",
+            'user_id'       => 1, // Budi Santoso
             'created_at'     => now(),
             'updated_at'     => now(),
         ]);

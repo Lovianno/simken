@@ -60,7 +60,7 @@
 									<td>{{ $parts->firstItem() + $loop->index }}</td>
 									<td>{{ Str::limit($part->name, 20) }}</td>
 									<td>Rp {{ number_format($part->base_price, 0, ',', '.') }}</td>
-									<td><span class="">{{ $part->stock }} </span></td>
+									<td>{{ $part->stock }} </td>
 									<td>{{ Str::limit($part->description, 20) }}</td>
 									<td class="d-flex justify-content-center gap-2">
 										<a href="{{ route('parts.show', $part) }}" class="btn btn-sm btn-info" title="Lihat">
@@ -173,6 +173,7 @@
 								<input type="number" id="quantity_add_{{ $part->id }}" name="quantity" class="form-control" min="1" required placeholder="Contoh: 10">
 								<small class="text-muted">Stok saat ini: <strong>{{ $part->stock }}</strong></small>
 							</div>
+							
 						</form>
 					</div>
 					<div class="modal-footer border-0 pt-0 px-4 pb-4 d-flex justify-content-end gap-2">
@@ -209,6 +210,11 @@
 								<label for="quantity_reduce_{{ $part->id }}" class="form-label">Jumlah yang Dikurangi <span class="text-danger">*</span></label>
 								<input type="number" id="quantity_reduce_{{ $part->id }}" name="quantity" class="form-control" min="1" max="{{ $part->stock }}" required placeholder="Contoh: 5">
 								<small class="text-muted">Stok saat ini: <strong>{{ $part->stock }}</strong></small>
+							</div>
+							<div class="mb-3">
+								<label for="note_{{ $part->id }}" class="form-label">Alasan Pengurangan Stok <span class="text-danger">*</span></label>
+								<textarea id="note_{{ $part->id }}" name="note" class="form-control" rows="4" style="resize: none;" required placeholder="Masukkan alasan pengurangan stok..."></textarea>
+								<small class="form-text text-muted d-block mt-2">Jelaskan alasan pengurangan stok dengan detail</small>
 							</div>
 						</form>
 					</div>

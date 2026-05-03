@@ -61,7 +61,7 @@
 									<td>{{ $vehicles->firstItem() + $loop->index }}</td>
 									<td>{{ $vehicle->nopol }}</td>
 									<td>{{ $vehicle->type }}</td>
-									<td><span class="badge bg-info">{{ $vehicle->category }}</span></td>
+									<td>{{ $vehicle->category }}</td>
 									<td>{{ $vehicle->year }}</td>
 									<td>{{ $vehicle->unit_number }}</td>
 									<td class="d-flex justify-content-center gap-2">

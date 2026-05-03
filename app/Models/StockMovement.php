@@ -12,6 +12,16 @@ class StockMovement extends Model
 
     protected $guarded = ['id'];
 
+    public function part()
+    {
+        return $this->belongsTo(Part::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     
 
 }
