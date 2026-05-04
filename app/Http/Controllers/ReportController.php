@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Http\Requests\ReportRequest;
+use App\Services\ReportService;
+use Illuminate\Http\Request;
 
 class ReportController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+     public function __construct(private ReportService $reportService) {}
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+        $reports = $this->reportService->getAll($search);
+
+        return view('pages.admin.report.index', compact('reports', 'search'));
     }
 
     /**
@@ -20,7 +26,7 @@ class ReportController
      */
     public function create()
     {
-        //
+        return view('pages.admin.report.create');
     }
 
     /**
@@ -28,7 +34,9 @@ class ReportController
      */
     public function store(ReportRequest $request)
     {
-        //
+        $this->reportService->create($request->validated());
+
+        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dibuat.');
     }
 
     /**
@@ -36,7 +44,8 @@ class ReportController
      */
     public function show(Report $report)
     {
-        //
+        $report = $this->reportService->getReport($report);
+        return view('pages.admin.report.show', compact('report'));
     }
 
     /**
@@ -44,7 +53,9 @@ class ReportController
      */
     public function edit(Report $report)
     {
-        //
+        $report = $this->reportService->getReport($report);
+
+        return view('pages.admin.report.edit', compact('report'));
     }
 
     /**
@@ -52,7 +63,9 @@ class ReportController
      */
     public function update(ReportRequest $request, Report $report)
     {
-        //
+        $this->reportService->update($report, $request->validated());
+
+        return redirect()->route('reports.show', $report)->with('success', 'Laporan berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +73,8 @@ class ReportController
      */
     public function destroy(Report $report)
     {
-        //
+        $this->reportService->delete($report);
+
+        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus.');
     }
 }

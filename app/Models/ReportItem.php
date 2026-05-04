@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReportItem extends Model
 {
@@ -11,11 +12,13 @@ class ReportItem extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    public function Part()
-    {
+
+    public function part(): BelongsTo
+    {   
         return $this->belongsTo(Part::class);
     }
-    public function ReportIssue()
+
+    public function reportIssue(): BelongsTo
     {
         return $this->belongsTo(ReportIssue::class);
     }

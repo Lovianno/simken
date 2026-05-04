@@ -4,23 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Report extends Model
 {
     /** @use HasFactory<\Database\Factories\ReportFactory> */
     use HasFactory;
-
+    protected $casts = [
+        'date' => 'date',
+    ];
     protected $guarded = ['id'];
 
 
-    public function Vehicle(){
+    public function vehicle(): BelongsTo
+    {
         return $this->belongsTo(Vehicle::class);
     }
 
-    public function User(){
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function ReportIssue(){
+
+    public function reportIssue(): HasMany
+    {
         return $this->hasMany(ReportIssue::class);
     }
 }
