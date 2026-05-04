@@ -96,6 +96,11 @@ class PartController
     /**
      * Add stock to the part.
      */
+
+    public function formStock(Part $part)
+    {
+        return view('pages.admin.part.stock', compact('part'));
+    }
     public function addStock(Request $request, Part $part): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validate([

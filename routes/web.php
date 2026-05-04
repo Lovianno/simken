@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function () {
        Route::resource('/users', UserController::class)->names('users');
        Route::resource('/vehicles', VehicleController::class)->names('vehicles');
        Route::resource('/parts', PartController::class)->names('parts');
+       Route::get('/parts/{part}/stock', [PartController::class, 'formStock'])->name('parts.stock');
        Route::post('/parts/{part}/add-stock', [PartController::class, 'addStock'])->name('parts.addStock');
        Route::post('/parts/{part}/reduce-stock', [PartController::class, 'reduceStock'])->name('parts.reduceStock');
     });

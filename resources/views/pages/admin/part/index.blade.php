@@ -66,24 +66,10 @@
 										<a href="{{ route('parts.show', $part) }}" class="btn btn-sm btn-info" title="Lihat">
 											<i class="bx bx-info-circle"></i> Lihat
 										</a>
-										<div class="btn-group" role="group">
-											<button type="button" class="btn btn-sm btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" title="Kelola Stok">
-												<i class="bx bx-package "></i> 
-												Stok
-											</button>
-											<ul class="dropdown-menu dropdown-menu-end">
-												<li>
-													<button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddStock{{ $part->id }}">
-														<i class="bx bx-plus-circle"></i> Tambah Stok
-													</button>
-												</li>
-												<li>
-													<button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalReduceStock{{ $part->id }}">
-														<i class="bx bx-minus-circle"></i> Kurangi Stok
-													</button>
-												</li>
-											</ul>
-										</div>
+										
+										<a href="{{ route('parts.stock', $part->id) }}" class="btn btn-sm btn-success" title="Stock">
+											<i class="bx bx-archive"></i> Stok
+										</a>
 										<a href="{{ route('parts.edit', $part) }}" class="btn btn-sm btn-warning" title="Ubah">
 											<i class="bx bx-pencil"></i> Ubah
 										</a>
