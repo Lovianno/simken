@@ -71,8 +71,8 @@
                 <span class="menu-header-text">Laporan</span>
             </li>
             <!-- Perbaikan Kendaraan -->
-            <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                <a href="{{ route('users.index') }}" class="menu-link text-decoration-none">
+            <li class="menu-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                <a href="{{ route('reports.index') }}" class="menu-link text-decoration-none">
                     <i class="menu-icon tf-icons bi bi-tools"></i>
                     <div>Perbaikan Kendaraan</div>
                 </a>

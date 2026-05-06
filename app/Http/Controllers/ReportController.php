@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use App\Http\Requests\ReportRequest;
+
+use App\Services\PartService;
 use App\Services\ReportService;
+use App\Services\VehicleService;
 use Illuminate\Http\Request;
+
 
 class ReportController
 {
     /**
      * Display a listing of the resource.
      */
-     public function __construct(private ReportService $reportService) {}
+    public function __construct(private ReportService $reportService, private VehicleService $vehicleService, private PartService $partService) {}
     public function index(Request $request)
     {
         $search = $request->query('search');
@@ -26,7 +30,9 @@ class ReportController
      */
     public function create()
     {
-        return view('pages.admin.report.create');
+        $vehicles = $this->vehicleService->getVehicleOptions();
+        $parts    = $this->partService->getPartOptions();
+        return view('pages.admin.report.create', compact('vehicles', 'parts'));
     }
 
     /**
@@ -34,9 +40,18 @@ class ReportController
      */
     public function store(ReportRequest $request)
     {
-        $this->reportService->create($request->validated());
+        $data = $request->validated();
+        try {
 
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dibuat.');
+            $this->reportService->create($data);
+
+            return redirect()->route('reports.index')
+                ->with('success', 'Laporan berhasil dibuat.');
+        } catch (\Exception $e) {
+
+            return redirect()->back()
+                ->with('error', 'Stok suku cadang tidak mencukupi!');
+        }
     }
 
     /**
@@ -44,6 +59,7 @@ class ReportController
      */
     public function show(Report $report)
     {
+        // return $this->partService->getPartById($report->id);
         $report = $this->reportService->getReport($report);
         return view('pages.admin.report.show', compact('report'));
     }

@@ -146,15 +146,9 @@ class PartController
             'note.max' => 'Alasan pengurangan stok maksimal 500 karakter.',
         ]);
 
-        $data['dataStockMovement'] = [
-            'part_id' => $part->getKey(),
-            'type' => 'out',
-            'quantity' => $data['quantity'],
-            'note' => $data['note'],
-            'user_id' => Auth::id(),
-        ];
+        
         try {
-            $this->partService->reduceStock($part, $data);
+            $this->partService->reduceStock($part,  $data['quantity'], $data['note']);
             return redirect()->route('parts.index')->with('success', "Stok berhasil dikurangi sebanyak {$data['quantity']} unit.");
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat mengurangi stok. Silakan coba lagi.']);

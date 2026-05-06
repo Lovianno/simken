@@ -28,6 +28,11 @@ class VehicleService
     /**
      * Create a new vehicle.
      */
+    public function getVehicleOptions()
+    {
+        return Vehicle::orderBy('nopol')->get();
+    }
+
     public function create(array $data): Vehicle
     {
         DB::beginTransaction();

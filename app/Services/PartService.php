@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Part;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PartService
@@ -28,6 +29,14 @@ class PartService
     /**
      * Create a new part.
      */
+    public function getPartOptions()
+    {
+        return Part::where('stock', '>', 0)->orderBy('name')->get();
+    }
+    public function getPartById(int $id)
+    {
+        return Part::findOrFail($id);
+    }
     public function create(array $data): Part
     {
         DB::beginTransaction();
@@ -90,13 +99,20 @@ class PartService
     /**
      * Reduce stock from a part.
      */
-    public function reduceStock(Part $part, array $data): bool
+    public function reduceStock(Part $part, int $quantity, string $note): bool
     {
-       
-
         DB::beginTransaction();
+
+        $data['dataStockMovement'] = [
+            'part_id' => $part->getKey(),
+            'type' => 'out',
+            'quantity' => $quantity,
+            'note' => $note,
+            'user_id' => Auth::id(),
+        ];
+
         try {
-            $part->decrement('stock', $data['quantity']);
+            $part->decrement('stock', $quantity);
             $this->StockMovementService->recordStockMovement($data['dataStockMovement']);
             DB::commit();
 
