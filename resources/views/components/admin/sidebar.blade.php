@@ -77,6 +77,13 @@
                     <div>Perbaikan Kendaraan</div>
                 </a>
             </li>
+            <!-- Riwayat Stok -->
+            <li class="menu-item {{ request()->routeIs('stock_movements.*') ? 'active' : '' }}">
+                <a href="{{ route('stock_movements.index') }}" class="menu-link text-decoration-none">
+                    <i class="menu-icon tf-icons bi bi-hourglass-split"></i>
+                    <div>Riwayat Stok</div>
+                </a>
+            </li>
           
 
         </ul>

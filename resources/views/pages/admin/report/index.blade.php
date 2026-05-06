@@ -51,6 +51,7 @@
 								<th>Nomor Polisi</th>
 								<th>User</th>
 								<th>Total</th>
+								<th>Status</th>
 								<th class="text-center">Aksi</th>
 							</tr>
 						</thead>
@@ -62,21 +63,28 @@
 									<td>{{ $report->vehicle->nopol ?? '-' }}</td>
 									<td>{{ $report->user->name ?? '-' }}</td>
 									<td>Rp {{ number_format($report->grand_total, 0, ',', '.') }}</td>
+									<td>
+										@if($report->status === 'active')
+											<span class="badge bg-opacity-10 w-100 text-success border border-success border-opacity-25 px-2 py-1 rounded-2">
+												<i class="bi bi-check-circle-fill me-1"></i> Aktif
+											</span>
+										@else
+											<span class="badge r bg-opacity-10 w-100 text-danger border border-danger border-opacity-25 px-2 py-1 rounded-2">
+												<i class="bi bi-x-circle-fill me-1"></i> Dibatalkan
+											</span>
+										@endif
+									</td>
 									<td class="d-flex justify-content-center gap-2">
 										<a href="{{ route('reports.show', $report) }}" class="btn btn-sm btn-info" title="Lihat">
 											<i class="bx bx-info-circle"></i> Lihat
 										</a>
-										<a href="{{ route('reports.edit', $report) }}" class="btn btn-sm btn-warning" title="Ubah">
-											<i class="bx bx-pencil"></i> Ubah
-										</a>
-										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCenter{{ $report->id }}" title="Hapus">
-											<i class="bx bx-trash"></i> Hapus
-										</button>
+										
+										
 									</td>
 								</tr>
 							@empty
 								<tr>
-									<td colspan="6" class="text-center text-muted py-4">
+									<td colspan="7" class="text-center text-muted py-4">
 										<i class="bi bi-folder-x fs-4 d-block mb-2"></i>
 										Tidak ada data laporan tersedia.
 									</td>
@@ -99,39 +107,9 @@
 
 	<!-- Delete Modals -->
 	@foreach ($reports as $report)
-		<div class="modal fade" id="modalCenter{{ $report->id }}" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content rounded-4 shadow-lg border-0 p-2">
-					<div class="modal-header border-0 pb-0">
-						<div class="d-flex align-items-center gap-2 w-100">
-							<i class="bi bi-exclamation-triangle text-danger fs-3 me-2"></i>
-							<div class="grow">
-								<h5 class="modal-title mb-0 fw-bold text-danger">Konfirmasi Hapus</h5>
-								<small class="text-muted">Tindakan ini tidak dapat dibatalkan</small>
-							</div>
-							<button type="button" class="btn-close me-2 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-					</div>
-					<div class="modal-body pt-3 pb-0 px-4">
-						<p class="mb-3 fs-6">Hapus laporan tanggal <strong>{{ $report->date->format('d M Y') }}</strong> untuk kendaraan <strong>{{ $report->vehicle->nopol }}</strong>?</p>
-					</div>
-					<div class="modal-footer border-0 pt-0 px-4 pb-4 d-flex justify-content-end gap-2">
-						<button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
-						<form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
-							@csrf
-							@method('DELETE')
-							<button type="submit" class="btn btn-danger px-4 btn-delete-report">
-								<span class="button-content"><i class="bi bi-trash me-1"></i> Hapus</span>
-								<span class="spinner-content d-none">
-									<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-									Menghapus...
-								</span>
-							</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
+		@if($report->status === 'active')
+			
+		@endif
 	@endforeach
 @endsection
 

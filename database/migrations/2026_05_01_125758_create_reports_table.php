@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->restrictOnDelete();
             $table->date('date')->comment('Tanggal Laporan');
             $table->decimal('grand_total', 15, 2)->default(0)->comment('Total Keseluruhan');
+            $table->enum('status', ['active', 'cancelled'])->default('active')->comment('Status Laporan');
             $table->timestamps();
         });
     }

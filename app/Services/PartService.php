@@ -12,8 +12,7 @@ class PartService
      * Get all parts with optional search filter and pagination.
      */
 
-    public function __construct(private StockMovementService $StockMovementService)
-    {}
+    public function __construct(private StockMovementService $StockMovementService) {}
     public function getAll(?string $search = null, int $perPage = 10)
     {
         return Part::query()
@@ -79,14 +78,23 @@ class PartService
     /**
      * Add stock to a part.
      */
-    public function addStock(Part $part, array $data): bool
+    public function addStock(Part $part, int $quantity, string $note): bool
     {
 
         DB::beginTransaction();
+
+        $data['dataStockMovement'] = [
+            'part_id' => $part->getKey(),
+            'type' => 'in',
+            'quantity' => $quantity,
+            'note' => $note,
+            'user_id' => Auth::id(),
+        ];
         try {
-            $part->increment('stock', $data['quantity']);
+
+            $part->increment('stock', $quantity);
             $this->StockMovementService->recordStockMovement($data['dataStockMovement']);
-            
+
             DB::commit();
 
             return true;

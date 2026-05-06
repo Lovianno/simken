@@ -109,8 +109,7 @@ class ReportService
 
                     // Update Stock Part
                     $part = $this->partService->getPartById($item['part_id']);
-                    $this->partService->reduceStock($part, $item['quantity'], "Penjualan suku cadang");
-                        
+                    $this->partService->reduceStock($part, $item['quantity'], "Penggunaan suku cadang");
                 }
             }
         });
@@ -119,23 +118,43 @@ class ReportService
     /**
      * Update an existing report.
      */
-    public function update(Report $report, array $data): bool
-    {
-        DB::beginTransaction();
-        try {
-            $result = $report->update($data);
-            DB::commit();
 
-            return $result;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+    public function cancel(Report $report)
+    {
+        DB::transaction(function () use ($report) {
+
+            // ❗ Hindari cancel berulang
+            if ($report->status === 'cancelled') {
+                throw new \Exception("Report sudah dibatalkan.");
+            }
+           
+          $report->load('reportIssue.reportItem.part');
+            foreach ($report->reportIssue as $issue) {
+                foreach ($issue->reportItem as $item) {
+
+                    // 🔒 lock biar aman dari race condition
+                    $part = $item->part()->lockForUpdate()->first();
+
+                    // 🔁 kembalikan stok
+                   $this->partService->addStock($part, $item->quantity, "Pembatalan laporan #{$report->id}");
+                    
+                }
+            }
+
+            // Change status report jadi cancelled
+            $this->changeStatus($report);
+        });
     }
 
     /**
      * Delete a report.
      */
+    public function changeStatus(Report $report)
+    {
+        $report->status = "cancelled";
+        $report->save();
+    }
+
     public function delete(Report $report): ?bool
     {
         return $report->delete();

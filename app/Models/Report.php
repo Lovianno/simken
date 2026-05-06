@@ -13,6 +13,7 @@ class Report extends Model
     use HasFactory;
     protected $casts = [
         'date' => 'date',
+        'status' => 'string',
     ];
     protected $guarded = ['id'];
 

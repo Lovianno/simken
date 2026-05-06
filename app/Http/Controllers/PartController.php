@@ -6,7 +6,6 @@ use App\Models\Part;
 use App\Http\Requests\PartRequest;
 use App\Services\PartService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PartController
 {
@@ -111,16 +110,10 @@ class PartController
             'quantity.min' => 'Jumlah stok minimal 1.',
         ]);
 
-        $data['dataStockMovement'] = [
-            'part_id' => $part->getKey(),
-            'type' => 'in',
-            'quantity' => $data['quantity'],
-            'note' => "Penambahan stok sebanyak {$data['quantity']} item",
-            'user_id' => Auth::id(),
-        ];
+       
 
         try {
-            $this->partService->addStock($part, $data);
+            $this->partService->addStock($part, $data['quantity'], "Penambahan stok sebanyak {$data['quantity']} unit");
             return redirect()->route('parts.index')->with('success', "Stok berhasil ditambahkan sebanyak {$data['quantity']} unit.");
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menambah stok. Silakan coba lagi.']);

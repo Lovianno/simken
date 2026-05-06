@@ -149,8 +149,6 @@ class ReportSeeder extends Seeder
                 'part_id'        => $s['part_id'],
                 'type'           => $s['type'],
                 'quantity'       => $s['quantity'],
-                'reference_id'   => null,
-                'reference_type' => 'purchase',
                 'note'          => null,
                 'user_id'       => 1, 
                 'created_at'     => now()->subDays(30),
@@ -165,8 +163,6 @@ class ReportSeeder extends Seeder
             'part_id'        => $partId,
             'type'           => 'out',
             'quantity'       => $qty,
-            'reference_id'   => $reportId,
-            'reference_type' => 'report_item',
             'note'          => "Penjualan part_id {$partId} sebanyak {$qty} untuk report_id {$reportId}",
             'user_id'       => 1, // Budi Santoso
             'created_at'     => now(),

@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\StockMovement;
 use App\Http\Requests\StockMovementRequest;
+use App\Services\StockMovementService;
+use Illuminate\Http\Request;
 
 class StockMovementController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+
+    public function __construct(private StockMovementService $stockMovementService) {}
+    public function index(Request $request)
     {
-        //
+        $search = $request->query('search');
+        $type = $request->query('type');
+        $stockMovements = $this->stockMovementService->getAll($search, $type);
+
+        return view('pages.admin.stock_movement.index', compact('stockMovements', 'search', 'type'));
     }
 
     /**

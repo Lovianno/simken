@@ -77,11 +77,10 @@ class ReportController
     /**
      * Update the specified resource in storage.
      */
-    public function update(ReportRequest $request, Report $report)
+    public function update(Report $report)
     {
-        $this->reportService->update($report, $request->validated());
-
-        return redirect()->route('reports.show', $report)->with('success', 'Laporan berhasil diperbarui.');
+       $this->reportService->cancel($report);
+        return redirect()->route('reports.index', $report)->with('success', 'Laporan berhasil dibatalkan.');
     }
 
     /**

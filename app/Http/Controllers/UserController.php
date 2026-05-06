@@ -92,6 +92,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        
+    
         $this->userService->delete($user);
         return redirect()->route('users.index')->with('success', 'Data Pengguna berhasil dihapus.');
     }

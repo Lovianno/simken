@@ -61,7 +61,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label class="form-label">Nomor Lambung</label>
-                            <input type="text" class="form-control" value="{{ $report->vehicle->unit_number ?? '-' }}" readonly>
+                            <input type="text" class="form-control" value="{{ $report->vehicle->unit_number ?? '-' }}"
+                                readonly>
                         </div>
                     </div>
 
@@ -142,54 +143,50 @@
                 </div>
 
                 <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2 px-0 pt-3">
-                    <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning">
-                        <i class="bi bi-pencil"></i> Edit
-                    </a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete">
-                        <i class="bi bi-trash"></i> Hapus
-                    </button>
+                    @if ($report->status === 'active')
+                        <button type="button" class="btn btn-danger " data-bs-toggle="modal"
+                            data-bs-target="#modalCenter{{ $report->id }}" title="Batalkan Laporan">
+                            <i class="bi bi-x"></i> Pembatalan Laporan
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Delete Modal -->
-    <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content rounded-4 shadow-lg border-0 p-2">
-                <div class="modal-header border-0 pb-0">
-                    <div class="d-flex align-items-center gap-2 w-100">
-                        <i class="bi bi-exclamation-triangle text-danger fs-3 me-2"></i>
-                        <div class="grow">
-                            <h5 class="modal-title mb-0 fw-bold text-danger">Konfirmasi Hapus</h5>
-                            <small class="text-muted">Tindakan ini tidak dapat dibatalkan</small>
-                        </div>
-                        <button type="button" class="btn-close me-2 mt-2" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                </div>
-                <div class="modal-body pt-3 pb-0 px-4">
-                    <p class="mb-3 fs-6">Hapus laporan tanggal <strong>{{ $report->date->format('d M Y') }}</strong> untuk
-                        kendaraan <strong>{{ $report->vehicle->nopol }}</strong>?</p>
-                </div>
-                <div class="modal-footer border-0 pt-0 px-4 pb-4 d-flex justify-content-end gap-2">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
-                    <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger px-4 btn-delete-report">
-                            <span class="button-content"><i class="bi bi-trash me-1"></i> Hapus</span>
-                            <span class="spinner-content d-none">
-                                <span class="spinner-border spinner-border-sm me-2" role="status"
-                                    aria-hidden="true"></span>
-                                Menghapus...
-                            </span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   <div class="modal fade" id="modalCenter{{ $report->id }}" tabindex="-1" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content rounded-4 shadow-lg border-0 p-2">
+						<div class="modal-header border-0 pb-0">
+							<div class="d-flex align-items-center gap-2 w-100">
+								<i class="bi bi-exclamation-triangle text-warning fs-3 me-2"></i>
+								<div class="grow">
+									<h5 class="modal-title mb-0 fw-bold text-warning">Batalkan Laporan</h5>
+									<small class="text-muted">Status akan diubah menjadi dibatalkan</small>
+								</div>
+								<button type="button" class="btn-close me-2 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+						</div>
+						<div class="modal-body pt-3 pb-0 px-4">
+							<p class="mb-3 fs-6">Batalkan laporan tanggal <strong>{{ $report->date->format('d M Y') }}</strong> untuk kendaraan <strong>{{ $report->vehicle->nopol }}</strong>?</p>
+						</div>
+						<div class="modal-footer border-0 pt-0 px-4 pb-4 d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-light border" data-bs-dismiss="modal">Batal</button>
+							<form action="{{ route('reports.update', $report) }}" method="POST" class="d-inline">
+								@csrf
+								@method('PUT')
+								<button type="submit" class="btn btn-warning px-4 btn-delete-report">
+									<span class="button-content"><i class="bi bi-exclamation-circle me-1"></i> Batalkan</span>
+									<span class="spinner-content d-none">
+										<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+										Memproses...
+									</span>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 @endsection
 
 @push('scripts')
