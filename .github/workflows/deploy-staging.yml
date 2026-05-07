@@ -1,0 +1,70 @@
+name: CI/CD - Deploy to Staging Server
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: staging
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, bcmath, xml, ctype, json, tokenizer, fileinfo, curl, zip, gd, pdo, pdo_mysql
+          ini-values: post_max_size=256M, upload_max_filesize=256M, memory_limit=512M, max_execution_time=300
+          coverage: none
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Composer + NPM)
+        run: |
+          composer install --no-dev --optimize-autoloader
+          npm install && npm run build
+
+      - name: Deploy Laravel app (without build)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_STAGING_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /
+          local-dir: ./
+          exclude: |
+            .git
+            .git/**
+            .github
+            .github/**
+            node_modules/**
+            vendor/**
+            tests/**
+            docs/**
+            public/build/**
+            .prettierignore
+            .prettierrc
+            .gitignore
+            .gitattributes
+            .editorconfig
+          timeout: 60000
+          protocol: ftps
+
+      - name: Clean and deploy build assets
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_STAGING_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public/build/
+          local-dir: ./public/build/
+          dangerous-clean-slate: true
+          protocol: ftps
