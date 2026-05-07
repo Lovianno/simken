@@ -1,14 +1,14 @@
 <div class="app-overlay"></div>
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
+    <div class="app-brand demo mb-2">
         <a href="{{ route('dashboard') }}" class="app-brand-link d-flex align-items-center text-decoration-none">
-            <span class="app-brand-logo demo">
-                <img src="{{ asset('assets/img/logo/Logo Simpul.svg') }}" alt="Logo"
-                    style="height: 32px; width: auto; object-fit: contain;">
-            </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2 fs-5"
-                style="text-transform: none">{{ config('app.name') }}</span>
+            <div class="logo w-100 ">
+                    <a href="/">
+                        <img src="{{ asset('assets/img/logo/Logo Full Simken.svg') }}" alt="Logo"
+                            class=" w-100 object-contain" style="height: auto">
+                    </a>
+                </div>
         </a>
 
         <a href="#" class="layout-menu-toggle menu-link text-large ms-auto d-none d-xl-none"

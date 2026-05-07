@@ -8,10 +8,13 @@
 			<div class="border-0 rounded-4 p-4">
 				<div class="text-center mb-4">
 					<a href="/" class="d-inline-flex align-items-center gap-2 text-decoration-none mb-2">
-						<img src="{{ asset('assets/img/logo/Circle Logo Simpul.png') }}" alt="Logo" width="48"
+						<img src="{{ asset('assets/img/logo/Logo Simken.svg') }}" alt="Logo" width="48"
 							class="rounded-circle shadow-sm border">
 						<span class="fw-bold text-app-primary fs-4" style="letter-spacing:2px;">SIMKEN</span>
 					</a>
+					<div class="small text-muted" style="font-size: 0.85rem;">
+						Sistem Informasi Maintenance Kendaraan
+					</div>
 				</div>
 				<form id="formAuthentication" method="POST" action="{{ route('login') }}" class="mb-3">
 					@csrf
@@ -37,12 +40,7 @@
 						@enderror
 					</div>
 					<div class="d-flex align-items-center justify-content-between mb-3">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="remember" name="remember">
-							<label class="form-check-label" for="remember">
-								Ingat saya
-							</label>
-						</div>
+						
 					</div>
 					<div class="mb-3">
 						<button class="btn btn-app-primary d-grid w-100" type="submit">Masuk</button>

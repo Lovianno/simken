@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+	<link rel="icon" type="image/svg+xml" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
 	<title>{{ config('app.name') }} - @yield('title')</title>
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Suku Cadang')
+@section('title', 'Data Suku Cadang')
 
 @section('breadcrumb')
 	<li class="breadcrumb-item active">Data Suku Cadang</li>
@@ -11,7 +11,7 @@
 		<!-- Card: Part List -->
 		<div class="card shadow-sm border-0 mb-4 p-3">
 			<div class="card-header bg-white border-0 mb-2">
-				<h5 class="card-title fw-semibold mb-4 fs-4">Daftar Data Suku Cadang</h5>
+				<h5 class="card-title fw-semibold mb-4 fs-4">Data Suku Cadang</h5>
 				<div class="row g-2 align-items-center">
 					<!-- Search -->
 					<div class="col-12 col-md-6">
@@ -35,7 +35,7 @@
 						</form>
 					</div>
 					<div class="col-12 col-md-auto ms-md-auto text-md-end">
-						<a href="{{ route('parts.create') }}" class="btn btn-primary w-100 w-md-auto">
+						<a href="{{ route('parts.create') }}" class="btn btn-app-secondary w-100 w-md-auto">
 							<i class="bi bi-plus-lg me-1"></i> Tambah Baru
 						</a>
 					</div>

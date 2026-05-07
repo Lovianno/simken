@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Exceptions\Handler;
+use Carbon\Carbon;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::setLocale('id');
+        setlocale(LC_TIME, 'id_ID');
         Paginator::useBootstrapFour();
     }
 }

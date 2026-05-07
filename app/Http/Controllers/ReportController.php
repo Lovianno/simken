@@ -9,6 +9,7 @@ use App\Services\PartService;
 use App\Services\ReportService;
 use App\Services\VehicleService;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class ReportController
@@ -79,7 +80,7 @@ class ReportController
      */
     public function update(Report $report)
     {
-       $this->reportService->cancel($report);
+        $this->reportService->cancel($report);
         return redirect()->route('reports.index', $report)->with('success', 'Laporan berhasil dibatalkan.');
     }
 
@@ -91,5 +92,20 @@ class ReportController
         $this->reportService->delete($report);
 
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus.');
+    }
+    public function print(Report $report)
+    {
+        if($report->status === 'cancelled') {
+            return redirect()->back()->with('error', 'Laporan sudah dibatalkan, tidak dapat dicetak.');
+        }
+
+        $report = $this->reportService->getReport($report);
+
+        $pdf = Pdf::loadView('reports.repairpdf', compact('report'))
+            ->setPaper('a4', 'portrait');
+
+        $filename = 'Laporan-' . $report->vehicle->nopol  . '.pdf';
+
+        return $pdf->stream($filename);
     }
 }

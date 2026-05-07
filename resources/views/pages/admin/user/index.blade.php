@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen User')
+@section('title', 'Data Pengguna')
 
 @section('breadcrumb')
 	<li class="breadcrumb-item active">Data Pengguna</li>
@@ -11,7 +11,7 @@
 		<!-- Card: User Aktif/Nonaktif -->
 		<div class="card shadow-sm border-0 mb-4 p-3">
 			<div class="card-header bg-white border-0 mb-2">
-				<h5 class="card-title fw-semibold mb-4 fs-4">Daftar Data Pengguna</h5>
+				<h5 class="card-title fw-semibold mb-4 fs-4">Data Pengguna</h5>
 				@if ($errors->has('delete'))
 					<div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
 						<i class="bi bi-exclamation-circle-fill me-2"></i>
@@ -43,7 +43,7 @@
 						</form>
 					</div>
 					<div class="col-12 col-md-auto ms-md-auto text-md-end">
-						<a href="{{ route('users.create') }}" class="btn btn-primary w-100 w-md-auto">
+						<a href="{{ route('users.create') }}" class="btn btn-app-secondary w-100 w-md-auto">
 							<i class="bi bi-plus-lg me-1"></i> Tambah Baru
 						</a>
 					</div>
@@ -74,7 +74,7 @@
 											$status = $user->status;
 											$badgeClass = $status === 'active' ? 'text-success border-success' : 'text-secondary border-secondary';
 										@endphp
-										<span class="badge bg-opacity-10 border {{ $badgeClass }} border-opacity-25 px-2 py-1 rounded-2"><i class="bi bi-check-circle-fill me-1"></i> {{ $status }}</span>
+										<span class="badge bg-opacity-10 border {{ $badgeClass }} border-opacity-25 px-2 py-1 rounded-2"><i class="bi bi-check-circle-fill me-1"></i> {{ $status === 'active' ? 'Aktif' : 'Nonaktif' }}</span>
 									</td>
 									<td class="d-flex justify-content-center gap-2">
 										<a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-info"><i class="bi bi-eye"></i>

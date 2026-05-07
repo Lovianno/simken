@@ -98,7 +98,7 @@
 					{{-- (No teacher-specific fields) --}}
 					{{-- SUBMIT BUTTON --}}
 					<div class="d-flex justify-content-end mt-4">
-						<button type="submit" class="btn btn-primary" id="submitUserBtn">
+						<button type="submit" class="btn btn-app-secondary" id="submitUserBtn">
 							<span class="button-content">
 								Simpan
 							</span>

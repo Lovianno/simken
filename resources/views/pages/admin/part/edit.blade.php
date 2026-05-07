@@ -52,7 +52,7 @@
 					</div>
 
 					<div class="d-flex justify-content-end mt-4">
-						<button type="submit" class="btn btn-primary" id="submitPartBtn">
+						<button type="submit" class="btn btn-app-secondary" id="submitPartBtn">
 							<span class="button-content">
 								Simpan
 							</span>

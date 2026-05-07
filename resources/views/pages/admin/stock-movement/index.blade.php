@@ -11,7 +11,7 @@
         <!-- Card: Stock Movement List -->
         <div class="card shadow-sm border-0 mb-4 p-3">
             <div class="card-header bg-white border-0 mb-2">
-                <h5 class="card-title fw-semibold mb-4 fs-4">Riwayat Pergerakan Stok</h5>
+                <h5 class="card-title fw-semibold mb-4 fs-4">Data Riwayat Pergerakan Stok</h5>
                 <div class="row g-2 align-items-center">
                     <!-- Search -->
                     <div class="col-12 col-md-6">

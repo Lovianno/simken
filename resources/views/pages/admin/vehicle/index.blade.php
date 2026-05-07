@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Kendaraan')
+@section('title', 'Data Kendaraan')
 
 @section('breadcrumb')
 	<li class="breadcrumb-item active">Data Kendaraan</li>
@@ -11,7 +11,7 @@
 		<!-- Card: Vehicle List -->
 		<div class="card shadow-sm border-0 mb-4 p-3">
 			<div class="card-header bg-white border-0 mb-2">
-				<h5 class="card-title fw-semibold mb-4 fs-4">Daftar Data Kendaraan</h5>
+				<h5 class="card-title fw-semibold mb-4 fs-4">Data Kendaraan</h5>
 				<div class="row g-2 align-items-center">
 					<!-- Search -->
 					<div class="col-12 col-md-6">
@@ -19,7 +19,7 @@
 							<div class="input-group">
 								<span class="input-group-text"><i class="bx bx-search"></i></span>
 								<input type="text" name="search" value="{{ $search ?? '' }}" class="form-control"
-									placeholder="Cari nomor polisi, tipe, atau unit...">
+									placeholder="Cari nomor polisi, tipe, atau kategori...">
 								<button class="btn btn-outline-secondary border btn-search-vehicle" type="submit">
 									<span class="button-content">Cari</span>
 									<span class="spinner-content d-none">
@@ -35,7 +35,7 @@
 						</form>
 					</div>
 					<div class="col-12 col-md-auto ms-md-auto text-md-end">
-						<a href="{{ route('vehicles.create') }}" class="btn btn-primary w-100 w-md-auto">
+						<a href="{{ route('vehicles.create') }}" class="btn btn-app-secondary w-100 w-md-auto">
 							<i class="bi bi-plus-lg me-1"></i> Tambah Baru
 						</a>
 					</div>

@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Laporan')
+@section('title', 'Perbaikan Kendaraan')
 
 @section('breadcrumb')
-	<li class="breadcrumb-item active">Data Laporan</li>
+	<li class="breadcrumb-item active">Laporan Perbaikan Kendaraan</li>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 		<!-- Card: Report List -->
 		<div class="card shadow-sm border-0 mb-4 p-3">
 			<div class="card-header bg-white border-0 mb-2">
-				<h5 class="card-title fw-semibold mb-4 fs-4">Daftar Data Laporan</h5>
+				<h5 class="card-title fw-semibold mb-4 fs-4">Data Laporan Perbaikan Kendaraan</h5>
 				<div class="row g-2 align-items-center">
 					<!-- Search -->
 					<div class="col-12 col-md-6">
@@ -35,7 +35,7 @@
 						</form>
 					</div>
 					<div class="col-12 col-md-auto ms-md-auto text-md-end">
-						<a href="{{ route('reports.create') }}" class="btn btn-primary w-100 w-md-auto">
+						<a href="{{ route('reports.create') }}" class="btn btn-app-secondary w-100 w-md-auto">
 							<i class="bi bi-plus-lg me-1"></i> Buat Laporan
 						</a>
 					</div>
@@ -59,7 +59,7 @@
 							@forelse($reports as $report)
 								<tr>
 									<td>{{ $reports->firstItem() + $loop->index }}</td>
-									<td>{{ $report->date->format('d M Y') }}</td>
+									<td>{{ $report->date->translatedFormat('d F Y') }}</td>
 									<td>{{ $report->vehicle->nopol ?? '-' }}</td>
 									<td>{{ $report->user->name ?? '-' }}</td>
 									<td>Rp {{ number_format($report->grand_total, 0, ',', '.') }}</td>

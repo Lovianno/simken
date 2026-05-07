@@ -49,7 +49,7 @@
                 
                 <h6 class="fw-bold mb-0 fs-5">Daftar Kerusakan & Suku Cadang</h6>
             </div>
-            <button type="button" class="btn btn-primary btn-sm px-3" id="btnAddIssue">
+            <button type="button" class="btn btn-app-secondary btn-sm px-3" id="btnAddIssue">
                 <i class="bi bi-plus-lg me-1"></i> Tambah Kerusakan
             </button>
         </div>
@@ -86,7 +86,7 @@
                         <a href="{{ route('reports.index') }}" class="btn btn-light border px-4">
                             <i class="bi bi-arrow-left me-1"></i> Kembali
                         </a>
-                        <button type="submit" class="btn btn-primary px-4 btn-submit-report">
+                        <button type="submit" class="btn btn-app-secondary px-4 btn-submit-report">
                             <span class="button-content"><i class="bi bi-save me-1"></i> Simpan Laporan</span>
                             <span class="spinner-content d-none">
                                 <span class="spinner-border spinner-border-sm me-2" role="status"></span>

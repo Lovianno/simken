@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PartController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StockMovementController;
@@ -12,14 +13,13 @@ Route::get('/welcome', function () {
 })->middleware('auth')->name('welcome');
 
 Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('pages.admin.dashboard');
-        })->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
        Route::resource('/users', UserController::class)->names('users');
        Route::resource('/vehicles', VehicleController::class)->names('vehicles');
        Route::get('/vehicles/{vehicle}/repair-history', [VehicleController::class, 'repairHistory'])->name('vehicles.repairHistory');
        Route::resource('/parts', PartController::class)->names('parts');
        Route::resource('/reports', ReportController::class)->names('reports');
+       Route::get('/reports/{report}/print', [ReportController::class, 'print'])->name('reports.print');
        Route::get('/parts/{part}/stock', [PartController::class, 'formStock'])->name('parts.stock');
        Route::post('/parts/{part}/add-stock', [PartController::class, 'addStock'])->name('parts.addStock');
        Route::post('/parts/{part}/reduce-stock', [PartController::class, 'reduceStock'])->name('parts.reduceStock');

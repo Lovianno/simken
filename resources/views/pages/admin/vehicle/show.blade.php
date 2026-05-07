@@ -51,7 +51,7 @@
                 </div>
                 <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2 px-0 pt-3">
                     <a href="{{ route('vehicles.edit', $vehicle) }}" class="btn btn-warning">
-                        <i class="bi bi-pencil"></i> Edit
+                        <i class="bi bi-pencil"></i> Ubah
                     </a>
                 </div>
             </div>

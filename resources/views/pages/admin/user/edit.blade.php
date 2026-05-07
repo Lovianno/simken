@@ -21,6 +21,7 @@
 					@csrf
 					@method('PUT')
 
+					{{-- STATUS --}}
 					<div class="row">
 						<div class="col-md-6 mb-3">
 							<label for="status" class="form-label">Status <span class="text-danger">*</span></label>
@@ -30,6 +31,51 @@
 							]" :selected="old('status', $user->status)" :searchable="false"
 								required />
 						</div>
+					</div>
+
+					{{-- NAMA --}}
+					<div class="mb-3">
+						<label for="name" class="form-label">Nama <span class="text-danger">*</span></label>
+						<input type="text" name="name" class="form-control @error('name') is-invalid @enderror" required placeholder="Masukkan nama lengkap"
+							value="{{ old('name', $user->name) }}">
+						@error('name')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					{{-- EMAIL --}}
+					<div class="mb-3">
+						<label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+						<input type="email" name="email" class="form-control @error('email') is-invalid @enderror" required placeholder="Masukkan email"
+							value="{{ old('email', $user->email) }}">
+						@error('email')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					{{-- NOMOR TELEPON --}}
+					<div class="mb-3">
+						<label for="phone_number" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
+						<input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" required placeholder="Masukkan nomor telepon"
+							value="{{ old('phone_number', $user->phone_number) }}">
+						@error('phone_number')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					{{-- PASSWORD --}}
+					<div class="mb-3">
+						<label for="password" class="form-label">Password <span class="text-muted">(Opsional)</span></label>
+						<div class="input-group">
+							<input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
+								placeholder="Biarkan kosong jika tidak ingin mengubah password">
+							<button type="button" class="btn password-toggle-btn" id="togglePassword">
+								<i class="bi bi-eye-slash"></i>
+							</button>
+						</div>
+						@error('password')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
 					</div>
 
 					{{-- KONFIRMASI PASSWORD --}}
@@ -97,7 +143,7 @@
 					</div>
 
 					<div class="d-flex justify-content-end mt-4">
-						<button type="submit" class="btn btn-primary" id="submitUserBtn">
+						<button type="submit" class="btn btn-app-secondary" id="submitUserBtn">
 							<span class="button-content">
 								Simpan
 							</span>
