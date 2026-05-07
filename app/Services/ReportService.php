@@ -34,6 +34,14 @@ class ReportService
     {
         return $report->load('user', 'vehicle', 'reportIssue.reportItem.part');
     }
+
+    public function getVehicleReportHistory(int $vehicleId, int $perPage = 10)
+    {
+        return Report::where('vehicle_id', $vehicleId)
+            ->with('user', 'reportIssue.reportItem.part')
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
+    }
     /**
      * Create a new report.
      */

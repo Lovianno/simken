@@ -88,6 +88,10 @@ class PartController
      */
     public function destroy(Part $part)
     {
+         if($part->StockMovement()->exists()) {
+            return redirect()->back()->with(['error' => 'Tidak dapat menghapus suku cadang yang memiliki laporan.']);
+        }
+
         $this->partService->delete($part);
         return redirect()->route('parts.index')->with('success', 'Data Suku Cadang berhasil dihapus.');
     }

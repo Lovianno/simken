@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
         })->name('dashboard');
        Route::resource('/users', UserController::class)->names('users');
        Route::resource('/vehicles', VehicleController::class)->names('vehicles');
+       Route::get('/vehicles/{vehicle}/repair-history', [VehicleController::class, 'repairHistory'])->name('vehicles.repairHistory');
        Route::resource('/parts', PartController::class)->names('parts');
        Route::resource('/reports', ReportController::class)->names('reports');
        Route::get('/parts/{part}/stock', [PartController::class, 'formStock'])->name('parts.stock');

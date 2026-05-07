@@ -29,7 +29,7 @@
                                 </button>
                             </div>
                             <a href="{{ url()->current() }}"
-                                class="btn btn-secondary border d-flex align-items-center gap-1 {{ request('search') ? '' : 'd-none' }}">
+                                 class="btn btn-secondary border d-flex align-items-center gap-1 {{ request('search') || request('type') ? '' : 'd-none' }}">
                                 <i class="bi bi-arrow-counterclockwise"></i>
                                 <span>Reset</span>
                             </a>

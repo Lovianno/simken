@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
 use App\Http\Requests\VehicleRequest;
+use App\Services\ReportService;
 use App\Services\VehicleService;
 use Illuminate\Http\Request;
 
 class VehicleController
 {
-    public function __construct(private VehicleService $vehicleService) { }
+    public function __construct(private VehicleService $vehicleService, private ReportService $reportService) { }
 
     /**
      * Display a listing of the resource.
@@ -92,7 +93,17 @@ class VehicleController
      */
     public function destroy(Vehicle $vehicle)
     {
+        if($vehicle->report()->exists()) {
+            return redirect()->back()->with(['error' => 'Tidak dapat menghapus kendaraan yang memiliki laporan.']);
+        }
+
         $this->vehicleService->delete($vehicle);
         return redirect()->route('vehicles.index')->with('success', 'Data Kendaraan berhasil dihapus.');
+    }
+
+    public function repairHistory(Vehicle $vehicle)
+    {   
+        $reports = $this->reportService->getVehicleReportHistory($vehicle->id);
+        return view('pages.admin.vehicle.repair-history', compact('vehicle', 'reports'));
     }
 }

@@ -16,4 +16,9 @@ class Part extends Model
     {
         return $this->hasMany(ReportItem::class);
     }
+    
+    public function StockMovement()
+    {
+        return $this->hasMany(StockMovement::class);
+    }
 }

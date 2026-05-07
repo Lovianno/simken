@@ -32,4 +32,9 @@ class Report extends Model
     {
         return $this->hasMany(ReportIssue::class);
     }
+
+    public function stockMovement(): HasMany
+    {
+        return $this->hasMany(StockMovement::class);
+    }
 }

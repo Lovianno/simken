@@ -65,6 +65,9 @@
 									<td>{{ $vehicle->year }}</td>
 									<td>{{ $vehicle->unit_number }}</td>
 									<td class="d-flex justify-content-center gap-2">
+										<a href="{{ route('vehicles.repairHistory', $vehicle) }}" class="btn btn-sm btn-success" title="Lihat">
+											<i class="bx bx-info-circle"></i> Riwayat Perbaikan
+										</a>
 										<a href="{{ route('vehicles.show', $vehicle) }}" class="btn btn-sm btn-info" title="Lihat">
 											<i class="bx bx-info-circle"></i> Lihat
 										</a>

@@ -12,7 +12,7 @@ class Vehicle extends Model
 
     protected $guarded = ['id'];
 
-    public function Reports()
+    public function Report()
     {
         return $this->hasMany(Report::class);
     }

@@ -20,7 +20,7 @@ class StockMovementController
         $type = $request->query('type');
         $stockMovements = $this->stockMovementService->getAll($search, $type);
 
-        return view('pages.admin.stock_movement.index', compact('stockMovements', 'search', 'type'));
+        return view('pages.admin.stock-movement.index', compact('stockMovements', 'search', 'type'));
     }
 
     /**
