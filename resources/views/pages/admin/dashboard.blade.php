@@ -63,7 +63,7 @@
                                 </div>
 
                                 <div class="fs-3 text-app-primary">
-                                    <i class="bx bxs-car"></i>
+                                    <i class="bi bi-car-front"></i>
                                 </div>
                             </div>
                         </div>
@@ -120,14 +120,14 @@
                             <div class="card-body d-flex justify-content-between align-items-start">
                                 <div>
                                     <div class="text-uppercase text-app-primary small text-muted fw-semibold mb-1">
-                                        Biaya Bulan Ini
+                                        Pendapatan Bulan Ini
                                     </div>
 
                                     <h5 class="fw-bold mb-1 text-app-primary">
                                         Rp {{ number_format($stats['monthly_cost'] ?? 0, 0, ',', '.') }}
                                     </h5>
 
-                                    <small class="text-muted">Total Pengeluaran</small>
+                                    <small class="text-muted">Total Pendapatan</small>
                                 </div>
 
                                 <div class="fs-3 text-app-primary">
