@@ -37,7 +37,7 @@ class ReportService
 
     public function getVehicleReportHistory(int $vehicleId, int $perPage = 10)
     {
-        return Report::where('vehicle_id', $vehicleId)
+        return Report::where('vehicle_id', $vehicleId)->where('status', 'active')
             ->with('user', 'reportIssue.reportItem.part')
             ->orderByDesc('created_at')
             ->paginate($perPage);
@@ -135,8 +135,8 @@ class ReportService
             if ($report->status === 'cancelled') {
                 throw new \Exception("Report sudah dibatalkan.");
             }
-           
-          $report->load('reportIssue.reportItem.part');
+
+            $report->load('reportIssue.reportItem.part');
             foreach ($report->reportIssue as $issue) {
                 foreach ($issue->reportItem as $item) {
 
@@ -144,8 +144,7 @@ class ReportService
                     $part = $item->part()->lockForUpdate()->first();
 
                     // 🔁 kembalikan stok
-                   $this->partService->addStock($part, $item->quantity, "Pembatalan laporan #{$report->id}");
-                    
+                    $this->partService->addStock($part, $item->quantity, "Pembatalan laporan #{$report->id}");
                 }
             }
 
