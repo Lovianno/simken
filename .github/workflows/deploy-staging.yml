@@ -17,7 +17,7 @@ jobs:
       - name: Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: "8.4"
           extensions: mbstring, bcmath, xml, ctype, json, tokenizer, fileinfo, curl, zip, gd, pdo, pdo_mysql
           ini-values: post_max_size=256M, upload_max_filesize=256M, memory_limit=512M, max_execution_time=300
           coverage: none
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies (Composer + NPM)
         run: |
@@ -35,9 +35,9 @@ jobs:
       - name: Deploy Laravel app (without build)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_STAGING_SERVER }}
           username: ${{ secrets.FTP_STAGING_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          password: ${{ secrets.FTP_STAGING_PASSWORD }}
           server-dir: /
           local-dir: ./
           exclude: |
@@ -61,9 +61,9 @@ jobs:
       - name: Clean and deploy build assets
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ secrets.FTP_STAGING_SERVER }}
           username: ${{ secrets.FTP_STAGING_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          password: ${{ secrets.FTP_STAGING_PASSWORD }}
           server-dir: /public/build/
           local-dir: ./public/build/
           dangerous-clean-slate: true
