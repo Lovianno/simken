@@ -49,75 +49,90 @@ class ReportService
     {
         DB::transaction(function () use ($data) {
 
-            // Variabel Penampung Sementara
-            $reportIssues = [];
+            // ── OPTIMASI: Hitung kebutuhan stok tiap part dulu (1 pass) ──
             $partStock = [];
-            $grandTotal = 0;
+            foreach ($data['issues'] as $issue) {
+                foreach ($issue['items'] as $item) {
+                    $partId = $item['part_id'];
+                    $partStock[$partId] = ($partStock[$partId] ?? 0) + (int) $item['quantity'];
+                }
+            }
 
-            // Persiapan Data untuk Create Report, ReportIssue, dan ReportItem
+            // ── OPTIMASI: Sort by key agar urutan lock konsisten → cegah deadlock ──
+            ksort($partStock);
+
+            // ── OPTIMASI: Lock semua part sekaligus + cek stok + simpan ke array ──
+            $lockedParts = [];
+            foreach ($partStock as $partId => $totalQty) {
+                $part = $this->partService->getPartByIdWithLock($partId);
+                if ($totalQty > $part->stock) {
+                    throw new \Exception(
+                        "Stok part {$part->name} tidak mencukupi. Dibutuhkan {$totalQty}, tersedia {$part->stock}"
+                    );
+                }
+                $lockedParts[$partId] = $part; // simpan instance yang sudah di-lock
+            }
+
+            // ── OPTIMASI: Hitung grand total & siapkan data pakai $lockedParts
+            //             (tidak query lagi ke DB, sudah di memory) ──
+            $grandTotal   = 0;
+            $reportIssues = [];
             foreach ($data['issues'] as $issue) {
                 $issueData = [
                     'issue_description' => $issue['issue_description'],
-                    'items' => []
+                    'items'             => [],
                 ];
 
                 foreach ($issue['items'] as $item) {
-                    $partId = $item['part_id'];
-                    $part = $this->partService->getPartById($partId);
-
-                    $unitPrice = $part->base_price;
-                    $qty = (int) $item['quantity'];
+                    $part       = $lockedParts[$item['part_id']]; // OPTIMASI: reuse dari memory
+                    $qty        = (int) $item['quantity'];
+                    $unitPrice  = $part->base_price;
                     $totalPrice = $unitPrice * $qty;
-
-                    $partStock[$partId] = ($partStock[$partId] ?? 0) + $qty;
                     $grandTotal += $totalPrice;
 
                     $issueData['items'][] = [
-                        'part_id' => $item['part_id'],
-                        'quantity' => $qty,
-                        'unit_price' => $unitPrice,
+                        'part_id'     => $item['part_id'],
+                        'quantity'    => $qty,
+                        'unit_price'  => $unitPrice,
                         'total_price' => $totalPrice,
                     ];
                 }
+
                 $reportIssues[] = $issueData;
             }
 
-            // Pengecekan Stok tiap Part Mencukupi atau tidak
-            foreach ($partStock as $partId => $totalQty) {
-                $part = $this->partService->getPartById($partId);
-                if ($totalQty > $part->stock) {
-                    throw new \Exception("Stok part {$part->name} tidak mencukupi. Dibutuhkan {$totalQty}, tersedia {$part->stock}");
-                }
-            }
-
-
-            // Query Create Report, ReportIssue, dan ReportItem
+            // Query Create Report
             $report = Report::create([
-                'vehicle_id' => $data['vehicle_id'],
-                'user_id' => Auth::id(),
-                'date' => $data['date'],
+                'vehicle_id'  => $data['vehicle_id'],
+                'user_id'     => Auth::id(),
+                'date'        => $data['date'],
                 'grand_total' => $grandTotal,
             ]);
 
+            // Query Create ReportIssue + ReportItem + Kurangi Stok
             foreach ($reportIssues as $issue) {
-
                 $reportIssue = ReportIssue::create([
-                    'report_id' => $report->id,
-                    'issue_description' => $issue['issue_description']
+                    'report_id'         => $report->id,
+                    'issue_description' => $issue['issue_description'],
                 ]);
 
                 foreach ($issue['items'] as $item) {
                     ReportItem::create([
                         'report_issue_id' => $reportIssue->id,
-                        'part_id' => $item['part_id'],
-                        'quantity' => $item['quantity'],
-                        'unit_price' => $item['unit_price'],
-                        'total_price' => $item['total_price'],
+                        'part_id'         => $item['part_id'],
+                        'quantity'        => $item['quantity'],
+                        'unit_price'      => $item['unit_price'],
+                        'total_price'     => $item['total_price'],
                     ]);
 
-                    // Update Stock Part
-                    $part = $this->partService->getPartById($item['part_id']);
-                    $this->partService->reduceStock($part, $item['quantity'], "Penggunaan suku cadang");
+                    // ── OPTIMASI: Reuse $lockedParts, tidak getPartByIdWithLock lagi ──
+                    $part = $lockedParts[$item['part_id']];
+                    $this->partService->reduceStock(
+                        $part,
+                        $item['quantity'],
+                        "Penggunaan suku cadang untuk laporan #{$report->id}",
+                        useTransaction: false // sudah dalam parent transaction
+                    );
                 }
             }
         });
@@ -129,27 +144,48 @@ class ReportService
 
     public function cancel(Report $report)
     {
+        // ── MINOR 1: Load relasi di luar transaction (hanya baca) ──
+        $report->load('reportIssue.reportItem');
+
         DB::transaction(function () use ($report) {
 
-            // ❗ Hindari cancel berulang
+            // ── BUG FIX: Lock report dulu sebelum cek status ──
+            $report = Report::lockForUpdate()->findOrFail($report->id);
             if ($report->status === 'cancelled') {
                 throw new \Exception("Report sudah dibatalkan.");
             }
 
-            $report->load('reportIssue.reportItem.part');
+            // Kumpulkan semua part_id & sort agar lock konsisten
+            $partIds = [];
             foreach ($report->reportIssue as $issue) {
                 foreach ($issue->reportItem as $item) {
+                    $partIds[] = $item->part_id;
+                }
+            }
+            $partIds = array_unique($partIds);
+            sort($partIds); // cegah deadlock
 
-                    // 🔒 lock biar aman dari race condition
-                    $part = $item->part()->lockForUpdate()->first();
+            // Lock semua part sekaligus
+            $lockedParts = [];
+            foreach ($partIds as $partId) {
+                $lockedParts[$partId] = $this->partService->getPartByIdWithLock($partId);
+            }
 
-                    // 🔁 kembalikan stok
-                    $this->partService->addStock($part, $item->quantity, "Pembatalan laporan #{$report->id}");
+            // Return stok pakai locked parts
+            foreach ($report->reportIssue as $issue) {
+                foreach ($issue->reportItem as $item) {
+                    $part = $lockedParts[$item->part_id];
+                    $this->partService->addStock(
+                        $part,
+                        $item->quantity,
+                        "Pembatalan laporan #{$report->id}",
+                        useTransaction: false
+                    );
                 }
             }
 
-            // Change status report jadi cancelled
-            $this->changeStatus($report);
+            // ── MINOR 2: Update status eksplisit ──
+            $report->update(['status' => 'cancelled']);
         });
     }
 

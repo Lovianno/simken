@@ -60,7 +60,7 @@ class ReportController
      */
     public function show(Report $report)
     {
-        // return $this->partService->getPartById($report->id);
+
         $report = $this->reportService->getReport($report);
         return view('pages.admin.report.show', compact('report'));
     }
@@ -68,11 +68,9 @@ class ReportController
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Report $report)
+    public function edit()
     {
-        $report = $this->reportService->getReport($report);
-
-        return view('pages.admin.report.edit', compact('report'));
+        return redirect()->back();
     }
 
     /**
@@ -95,7 +93,7 @@ class ReportController
     }
     public function print(Report $report)
     {
-        if($report->status === 'cancelled') {
+        if ($report->status === 'cancelled') {
             return redirect()->back()->with('error', 'Laporan sudah dibatalkan, tidak dapat dicetak.');
         }
 
