@@ -13,9 +13,9 @@ class DashboardController extends Controller
     {
         $stats = [
             'total_vehicles'   => Vehicle::count(),
-            'total_reports'    => Report::count(),
-            'monthly_reports'  => Report::whereMonth('date', now()->month)->count(),
-            'monthly_cost'     => Report::whereMonth('date', now()->month)->sum('grand_total'),
+            'total_reports'    => Report::where('status', 'active')->count(),
+            'monthly_reports'  => Report::where('status', 'active')->whereMonth('date', now()->month)->count(),
+            'monthly_cost'     => Report::where('status', 'active')->whereMonth('date', now()->month)->sum('grand_total'),
 
             'total_parts'      => Part::count(),
             'low_stock_parts'  => Part::where('stock', '<=', 5)->count(),

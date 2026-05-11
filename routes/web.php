@@ -8,9 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/welcome', function () {a
-    return view('pages.welcome');
-})->middleware('auth')->name('welcome');
+
 
 Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
