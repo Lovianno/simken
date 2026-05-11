@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class VehicleRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class VehicleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nopol' => ['required', 'string', 'max:20', 'unique:vehicles,nopol'],
+            'nopol' => ['required', 'string', 'max:20', Rule::unique('vehicles', 'nopol')->ignore($this->route('vehicle'))],
             'type' => ['required', 'string', 'max:100'],
             'category' => ['required', 'in:Mobil,Truk,Bus,Sepeda Motor'],
             'year' => ['required', 'integer', 'min:1900', 'max:' . now()->year + 1],
