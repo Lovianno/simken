@@ -76,6 +76,117 @@
 						@enderror
 					</div>
 
+					<hr class="my-4">
+					<h6 class="fw-semibold mb-3">Data Tambahan (Opsional)</h6>
+
+					{{-- UKURAN TRUK --}}
+					<div class="mb-3">
+						<label for="truck_size" class="form-label">Ukuran Truk</label>
+						<select name="truck_size" id="truck_size" class="form-select @error('truck_size') is-invalid @enderror">
+							<option value="">-- Pilih Ukuran --</option>
+							<option value="20 FEET" {{ old('truck_size', $vehicle->truck_size) == '20 FEET' ? 'selected' : '' }}>20 FEET</option>
+							<option value="40 FEET" {{ old('truck_size', $vehicle->truck_size) == '40 FEET' ? 'selected' : '' }}>40 FEET</option>
+							<option value="40 SLEDING" {{ old('truck_size', $vehicle->truck_size) == '40 SLEDING' ? 'selected' : '' }}>40 SLEDING</option>
+						</select>
+						@error('truck_size')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					{{-- DATA STNK --}}
+					<div class="mb-3">
+						<label for="stnk_owner" class="form-label">Nama Pemilik di STNK (AN STNK)</label>
+						<input type="text" name="stnk_owner" class="form-control @error('stnk_owner') is-invalid @enderror" placeholder="Nama Pemilik"
+							value="{{ old('stnk_owner', $vehicle->stnk_owner) }}">
+						@error('stnk_owner')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="tax_due_date" class="form-label">Jatuh Tempo Pajak Tahunan</label>
+							<input type="date" name="tax_due_date" class="form-control @error('tax_due_date') is-invalid @enderror"
+								value="{{ old('tax_due_date', $vehicle->tax_due_date) }}">
+							@error('tax_due_date')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="stnk_due_date" class="form-label">Jatuh Tempo STNK 5 Tahunan</label>
+							<input type="date" name="stnk_due_date" class="form-control @error('stnk_due_date') is-invalid @enderror"
+								value="{{ old('stnk_due_date', $vehicle->stnk_due_date) }}">
+							@error('stnk_due_date')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+					</div>
+
+					{{-- KIR KEPALA / TRACTOR --}}
+					<h6 class="fw-semibold mb-3 mt-4">KIR Kepala/Tractor</h6>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="kir_head_number" class="form-label">Nomor KIR Kepala/Tractor</label>
+							<input type="text" name="kir_head_number" class="form-control @error('kir_head_number') is-invalid @enderror" placeholder="Nomor KIR"
+								value="{{ old('kir_head_number', $vehicle->kir_head_number) }}">
+							@error('kir_head_number')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="kir_head_due_date" class="form-label">Tanggal Jatuh Tempo KIR Kepala</label>
+							<input type="date" name="kir_head_due_date" class="form-control @error('kir_head_due_date') is-invalid @enderror"
+								value="{{ old('kir_head_due_date', $vehicle->kir_head_due_date) }}">
+							@error('kir_head_due_date')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+					</div>
+
+					{{-- KIR KERETA / TRAILER --}}
+					<h6 class="fw-semibold mb-3 mt-4">KIR Kereta/Trailer</h6>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="kir_trailer_number" class="form-label">Nomor KIR Kereta/Trailer</label>
+							<input type="text" name="kir_trailer_number" class="form-control @error('kir_trailer_number') is-invalid @enderror" placeholder="Nomor KIR"
+								value="{{ old('kir_trailer_number', $vehicle->kir_trailer_number) }}">
+							@error('kir_trailer_number')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="kir_trailer_due_date" class="form-label">Tanggal Jatuh Tempo KIR Kereta</label>
+							<input type="date" name="kir_trailer_due_date" class="form-control @error('kir_trailer_due_date') is-invalid @enderror"
+								value="{{ old('kir_trailer_due_date', $vehicle->kir_trailer_due_date) }}">
+							@error('kir_trailer_due_date')
+								<div class="invalid-feedback d-block">{{ $message }}</div>
+							@enderror
+						</div>
+					</div>
+
+					{{-- SUPIR & KETERANGAN --}}
+					<div class="mb-3">
+						<label for="driver_name" class="form-label">Nama Supir</label>
+						<input type="text" name="driver_name" class="form-control @error('driver_name') is-invalid @enderror" placeholder="Nama Supir"
+							value="{{ old('driver_name', $vehicle->driver_name) }}">
+						@error('driver_name')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
+					<div class="mb-3">
+						<label for="notes" class="form-label">Keterangan Tambahan</label>
+						<textarea name="notes" class="form-control @error('notes') is-invalid @enderror" rows="3" placeholder="Keterangan tambahan jika ada">{{ old('notes', $vehicle->notes) }}</textarea>
+						@error('notes')
+							<div class="invalid-feedback d-block">{{ $message }}</div>
+						@enderror
+					</div>
+
 					<div class="d-flex justify-content-end mt-4">
 						<button type="submit" class="btn btn-app-secondary" id="submitVehicleBtn">
 							<span class="button-content">

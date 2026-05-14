@@ -38,6 +38,62 @@
                     <label class="form-label">Nomor Unit Internal</label>
                     <input type="text" class="form-control" value="{{ $vehicle->unit_number }}" readonly>
                 </div>
+                <hr class="my-4">
+                <h6 class="fw-semibold mb-3">Data Tambahan</h6>
+
+                <div class="mb-3">
+                    <label class="form-label">Ukuran Truk</label>
+                    <input type="text" class="form-control" value="{{ $vehicle->truck_size ?? '-' }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Pemilik di STNK</label>
+                    <input type="text" class="form-control" value="{{ $vehicle->stnk_owner ?? '-' }}" readonly>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Jatuh Tempo Pajak Tahunan</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->tax_due_date ? \Carbon\Carbon::parse($vehicle->tax_due_date)->translatedFormat('d F Y') : '-' }}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Jatuh Tempo STNK 5 Tahunan</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->stnk_due_date ? \Carbon\Carbon::parse($vehicle->stnk_due_date)->translatedFormat('d F Y') : '-' }}" readonly>
+                    </div>
+                </div>
+
+                <h6 class="fw-semibold mb-3 mt-4">KIR Kepala/Tractor</h6>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nomor KIR Kepala/Tractor</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->kir_head_number ?? '-' }}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tanggal Jatuh Tempo KIR Kepala</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->kir_head_due_date ? \Carbon\Carbon::parse($vehicle->kir_head_due_date)->translatedFormat('d F Y') : '-' }}" readonly>
+                    </div>
+                </div>
+
+                <h6 class="fw-semibold mb-3 mt-4">KIR Kereta/Trailer</h6>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nomor KIR Kereta/Trailer</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->kir_trailer_number ?? '-' }}" readonly>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tanggal Jatuh Tempo KIR Kereta</label>
+                        <input type="text" class="form-control" value="{{ $vehicle->kir_trailer_due_date ? \Carbon\Carbon::parse($vehicle->kir_trailer_due_date)->translatedFormat('d F Y') : '-' }}" readonly>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nama Supir</label>
+                    <input type="text" class="form-control" value="{{ $vehicle->driver_name ?? '-' }}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Keterangan Tambahan</label>
+                    <textarea class="form-control" rows="3" readonly>{{ $vehicle->notes ?? '-' }}</textarea>
+                </div>
+
                 <hr>
                 <div class="mb-3">
                     <label class="form-label">Dibuat Pada</label>
